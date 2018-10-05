@@ -1,0 +1,19 @@
+{
+  "name": "chunk",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node node_modules/react-native/local-cli/cli.js start",
+    "ios": "react-native run-ios"
+  },
+  "dependencies": {
+    "react": "16.5.0",
+    "react-native": "0.57.2"
+  },
+  "devDependencies": {
+    "babel-eslint": "^10.0.1",
+    "eslint": "^5.6.1",
+    "eslint-plugin-react": "^7.11.1",
+    "metro-react-native-babel-preset": "0.47.1"
+  }
+}
