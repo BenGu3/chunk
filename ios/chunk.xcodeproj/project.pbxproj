@@ -38,6 +38,21 @@
 		2DF0FFEE2056DD460020B375 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DAD3EA31DF850E9000B6D8A /* libReact.a */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 		ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADBDB9271DFEBF0700ED6528 /* libRCTBlob.a */; };
+		CD0AC4DB216AFF3C00374A64 /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CD0AC4A7216AFF3C00374A64 /* Octicons.ttf */; };
+		CD0AC4DC216AFF3C00374A64 /* Feather.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CD0AC4A8216AFF3C00374A64 /* Feather.ttf */; };
+		CD0AC4DD216AFF3C00374A64 /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CD0AC4A9216AFF3C00374A64 /* Entypo.ttf */; };
+		CD0AC4DE216AFF3C00374A64 /* FontAwesome5_Brands.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CD0AC4AA216AFF3C00374A64 /* FontAwesome5_Brands.ttf */; };
+		CD0AC4DF216AFF3C00374A64 /* MaterialCommunityIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CD0AC4AB216AFF3C00374A64 /* MaterialCommunityIcons.ttf */; };
+		CD0AC4E0216AFF3C00374A64 /* AntDesign.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CD0AC4AC216AFF3C00374A64 /* AntDesign.ttf */; };
+		CD0AC4E1216AFF3C00374A64 /* Foundation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CD0AC4AD216AFF3C00374A64 /* Foundation.ttf */; };
+		CD0AC4E2216AFF3C00374A64 /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CD0AC4AE216AFF3C00374A64 /* Ionicons.ttf */; };
+		CD0AC4E3216AFF3C00374A64 /* FontAwesome5_Solid.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CD0AC4AF216AFF3C00374A64 /* FontAwesome5_Solid.ttf */; };
+		CD0AC4E4216AFF3C00374A64 /* FontAwesome5_Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CD0AC4B0216AFF3C00374A64 /* FontAwesome5_Regular.ttf */; };
+		CD0AC4E5216AFF3C00374A64 /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CD0AC4B1216AFF3C00374A64 /* FontAwesome.ttf */; };
+		CD0AC4E6216AFF3C00374A64 /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CD0AC4B2216AFF3C00374A64 /* Zocial.ttf */; };
+		CD0AC4E7216AFF3C00374A64 /* EvilIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CD0AC4B3216AFF3C00374A64 /* EvilIcons.ttf */; };
+		CD0AC4E8216AFF3C00374A64 /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CD0AC4B4216AFF3C00374A64 /* SimpleLineIcons.ttf */; };
+		CD0AC4E9216AFF3C00374A64 /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CD0AC4B5216AFF3C00374A64 /* MaterialIcons.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -343,6 +358,21 @@
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
 		ADBDB91F1DFEBF0600ED6528 /* RCTBlob.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTBlob.xcodeproj; path = "../node_modules/react-native/Libraries/Blob/RCTBlob.xcodeproj"; sourceTree = "<group>"; };
+		CD0AC4A7216AFF3C00374A64 /* Octicons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Octicons.ttf; sourceTree = "<group>"; };
+		CD0AC4A8216AFF3C00374A64 /* Feather.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Feather.ttf; sourceTree = "<group>"; };
+		CD0AC4A9216AFF3C00374A64 /* Entypo.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Entypo.ttf; sourceTree = "<group>"; };
+		CD0AC4AA216AFF3C00374A64 /* FontAwesome5_Brands.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FontAwesome5_Brands.ttf; sourceTree = "<group>"; };
+		CD0AC4AB216AFF3C00374A64 /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = MaterialCommunityIcons.ttf; sourceTree = "<group>"; };
+		CD0AC4AC216AFF3C00374A64 /* AntDesign.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = AntDesign.ttf; sourceTree = "<group>"; };
+		CD0AC4AD216AFF3C00374A64 /* Foundation.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Foundation.ttf; sourceTree = "<group>"; };
+		CD0AC4AE216AFF3C00374A64 /* Ionicons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Ionicons.ttf; sourceTree = "<group>"; };
+		CD0AC4AF216AFF3C00374A64 /* FontAwesome5_Solid.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FontAwesome5_Solid.ttf; sourceTree = "<group>"; };
+		CD0AC4B0216AFF3C00374A64 /* FontAwesome5_Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FontAwesome5_Regular.ttf; sourceTree = "<group>"; };
+		CD0AC4B1216AFF3C00374A64 /* FontAwesome.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FontAwesome.ttf; sourceTree = "<group>"; };
+		CD0AC4B2216AFF3C00374A64 /* Zocial.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Zocial.ttf; sourceTree = "<group>"; };
+		CD0AC4B3216AFF3C00374A64 /* EvilIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = EvilIcons.ttf; sourceTree = "<group>"; };
+		CD0AC4B4216AFF3C00374A64 /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = SimpleLineIcons.ttf; sourceTree = "<group>"; };
+		CD0AC4B5216AFF3C00374A64 /* MaterialIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = MaterialIcons.ttf; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -523,6 +553,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		50134D6B4FC142A9A6BD1A66 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				CD0AC4A6216AFF3C00374A64 /* Fonts */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
 		5E91572E1DD0AC6500FF2AA8 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -577,6 +615,7 @@
 				00E356EF1AD99517003FC87E /* chunkTests */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
+				50134D6B4FC142A9A6BD1A66 /* Resources */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -601,6 +640,29 @@
 				2D16E6721FA4F8DC00B85C8A /* libRCTBlob-tvOS.a */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		CD0AC4A6216AFF3C00374A64 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				CD0AC4A7216AFF3C00374A64 /* Octicons.ttf */,
+				CD0AC4A8216AFF3C00374A64 /* Feather.ttf */,
+				CD0AC4A9216AFF3C00374A64 /* Entypo.ttf */,
+				CD0AC4AA216AFF3C00374A64 /* FontAwesome5_Brands.ttf */,
+				CD0AC4AB216AFF3C00374A64 /* MaterialCommunityIcons.ttf */,
+				CD0AC4AC216AFF3C00374A64 /* AntDesign.ttf */,
+				CD0AC4AD216AFF3C00374A64 /* Foundation.ttf */,
+				CD0AC4AE216AFF3C00374A64 /* Ionicons.ttf */,
+				CD0AC4AF216AFF3C00374A64 /* FontAwesome5_Solid.ttf */,
+				CD0AC4B0216AFF3C00374A64 /* FontAwesome5_Regular.ttf */,
+				CD0AC4B1216AFF3C00374A64 /* FontAwesome.ttf */,
+				CD0AC4B2216AFF3C00374A64 /* Zocial.ttf */,
+				CD0AC4B3216AFF3C00374A64 /* EvilIcons.ttf */,
+				CD0AC4B4216AFF3C00374A64 /* SimpleLineIcons.ttf */,
+				CD0AC4B5216AFF3C00374A64 /* MaterialIcons.ttf */,
+			);
+			name = Fonts;
+			path = "../node_modules/react-native-vector-icons/Fonts";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -684,7 +746,7 @@
 		83CBB9F71A601CBA00E9B192 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0940;
+				LastUpgradeCheck = 940;
 				ORGANIZATIONNAME = Facebook;
 				TargetAttributes = {
 					00E356ED1AD99517003FC87E = {
@@ -1047,7 +1109,22 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CD0AC4E2216AFF3C00374A64 /* Ionicons.ttf in Resources */,
+				CD0AC4E5216AFF3C00374A64 /* FontAwesome.ttf in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+				CD0AC4DF216AFF3C00374A64 /* MaterialCommunityIcons.ttf in Resources */,
+				CD0AC4DB216AFF3C00374A64 /* Octicons.ttf in Resources */,
+				CD0AC4E1216AFF3C00374A64 /* Foundation.ttf in Resources */,
+				CD0AC4E6216AFF3C00374A64 /* Zocial.ttf in Resources */,
+				CD0AC4DC216AFF3C00374A64 /* Feather.ttf in Resources */,
+				CD0AC4E4216AFF3C00374A64 /* FontAwesome5_Regular.ttf in Resources */,
+				CD0AC4DE216AFF3C00374A64 /* FontAwesome5_Brands.ttf in Resources */,
+				CD0AC4DD216AFF3C00374A64 /* Entypo.ttf in Resources */,
+				CD0AC4E9216AFF3C00374A64 /* MaterialIcons.ttf in Resources */,
+				CD0AC4E0216AFF3C00374A64 /* AntDesign.ttf in Resources */,
+				CD0AC4E3216AFF3C00374A64 /* FontAwesome5_Solid.ttf in Resources */,
+				CD0AC4E8216AFF3C00374A64 /* SimpleLineIcons.ttf in Resources */,
+				CD0AC4E7216AFF3C00374A64 /* EvilIcons.ttf in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1171,9 +1248,11 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
+				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = chunkTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-lc++",
@@ -1189,9 +1268,11 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
+				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = chunkTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-lc++",
@@ -1208,6 +1289,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
+				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = chunk/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
@@ -1226,6 +1308,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CURRENT_PROJECT_VERSION = 1;
+				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = chunk/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
@@ -1251,8 +1334,10 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_TESTABILITY = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
+				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "chunk-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-lc++",
@@ -1277,8 +1362,10 @@
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_NO_COMMON_BLOCKS = YES;
+				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "chunk-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-lc++",
@@ -1302,8 +1389,10 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_TESTABILITY = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
+				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "chunk-tvOSTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-lc++",
@@ -1327,8 +1416,10 @@
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_NO_COMMON_BLOCKS = YES;
+				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "chunk-tvOSTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-lc++",
