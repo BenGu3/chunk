@@ -19,7 +19,7 @@ export default createMaterialBottomTabNavigator({
     screen: ChunkList,
     navigationOptions: {
       tabBarIcon: ({ tintColor, focused }) => (
-        <Icon size={25} name={'md-cube'} style={{ color: tintColor }} />
+        <Icon size={25} name={'md-checkmark-circle-outline'} style={{ color: tintColor }} />
       )
     }
   },
