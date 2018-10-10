@@ -5,21 +5,30 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
 import { addEvent } from '../../actions/CalendarActions'
-
+import AddDialog from '../add-dialog'
 
 class Calendar extends React.Component {
   constructor(props) {
     super(props)
     this.handleOnPress = this.handleOnPress.bind(this)
+    this.handleOnAddDialogClose = this.handleOnAddDialogClose.bind(this)
+    this.state = {
+      isDialogOpen: false
+    }
+  }
+
+  handleOnAddDialogClose() {
+    this.setState({ isDialogOpen: false })
   }
 
   handleOnPress() {
-    const { events } = this.props.calendar
-    const length = events ? events.length : 0
-    this.props.addEvent({
-      name: 'event' + length,
-      id: length
-    })
+    // const { events } = this.props.calendar
+    // const length = events ? events.length : 0
+    // this.props.addEvent({
+    //   name: 'event' + length,
+    //   id: length
+    // })
+    this.setState({ isDialogOpen: true })
   }
 
   renderEvents() {
@@ -37,6 +46,7 @@ class Calendar extends React.Component {
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
         <Text style={{ textAlign: 'center' }}>Calendar</Text>
         {this.renderEvents()}
+        <AddDialog isDialogOpen={this.state.isDialogOpen} onClose={this.handleOnAddDialogClose}/>
         <FAB
           style={styles.fab}
           color='white'

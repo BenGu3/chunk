@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Portal } from 'react-native-paper'
 import { Provider } from 'react-redux'
 
 import BottomNav from './src/components/bottom-nav'
@@ -10,8 +11,11 @@ class App extends Component {
   render() {
     return (
       <Provider store={ store }>
-        <BottomNav />
+        <Portal.Host>
+          <BottomNav />
+        </Portal.Host>
       </Provider>
+
     )
   }
 }

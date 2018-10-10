@@ -5,20 +5,30 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
 import { addTask } from '../../actions/TaskListActions'
+import AddDialog from '../add-dialog'
 
 class TaskList extends React.Component {
   constructor(props) {
     super(props)
     this.handleOnPress = this.handleOnPress.bind(this)
+    this.handleOnAddDialogClose = this.handleOnAddDialogClose.bind(this)
+    this.state = {
+      isDialogOpen: false
+    }
+  }
+
+  handleOnAddDialogClose() {
+    this.setState({ isDialogOpen: false })
   }
 
   handleOnPress() {
-    const { tasks } = this.props.taskList
-    const length = tasks ? tasks.length : 0
-    this.props.addTask({
-      name: 'task' + length,
-      id: length
-    })
+    // const { tasks } = this.props.taskList
+    // const length = tasks ? tasks.length : 0
+    // this.props.addTask({
+    //   name: 'task' + length,
+    //   id: length
+    // })
+    this.setState({ isDialogOpen: true })
   }
 
   renderTasks() {
@@ -36,6 +46,7 @@ class TaskList extends React.Component {
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
         <Text style={{ textAlign: 'center' }}>TaskList</Text>
         {this.renderTasks()}
+        <AddDialog isDialogOpen={this.state.isDialogOpen} onClose={this.handleOnAddDialogClose}/>
         <FAB
           style={styles.fab}
           color='white'
