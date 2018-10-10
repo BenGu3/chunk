@@ -2,9 +2,7 @@ import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 import { FAB } from 'react-native-paper'
 import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
 
-import { addEvent } from '../../actions/CalendarActions'
 import AddDialog from '../add-dialog'
 
 class Calendar extends React.Component {
@@ -23,12 +21,6 @@ class Calendar extends React.Component {
   }
 
   handleOnPress() {
-    // const { events } = this.props.calendar
-    // const length = events ? events.length : 0
-    // this.props.addEvent({
-    //   name: 'event' + length,
-    //   id: length
-    // })
     this.setState({ isDialogOpen: true })
   }
 
@@ -81,14 +73,8 @@ const styles = StyleSheet.create({
 })
 
 const mapStateToProps = (state) => {
-  const { calendar } = state
-  return { calendar }
+  const { calendar, taskList } = state
+  return { calendar, taskList }
 }
 
-const mapDispatchToProps = dispatch => (
-  bindActionCreators({
-    addEvent,
-  }, dispatch)
-)
-
-export default connect(mapStateToProps, mapDispatchToProps)(Calendar)
+export default connect(mapStateToProps)(Calendar)

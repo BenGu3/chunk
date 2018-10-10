@@ -2,9 +2,7 @@ import React from 'react'
 import { StyleSheet, Text, View } from 'react-native';
 import { FAB } from 'react-native-paper';
 import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
 
-import { addTask } from '../../actions/TaskListActions'
 import AddDialog from '../add-dialog'
 
 class TaskList extends React.Component {
@@ -23,12 +21,6 @@ class TaskList extends React.Component {
   }
 
   handleOnPress() {
-    // const { tasks } = this.props.taskList
-    // const length = tasks ? tasks.length : 0
-    // this.props.addTask({
-    //   name: 'task' + length,
-    //   id: length
-    // })
     this.setState({ isDialogOpen: true })
   }
 
@@ -85,10 +77,4 @@ const mapStateToProps = (state) => {
   return { taskList }
 }
 
-const mapDispatchToProps = dispatch => (
-  bindActionCreators({
-    addTask,
-  }, dispatch)
-)
-
-export default connect(mapStateToProps, mapDispatchToProps)(TaskList)
+export default connect(mapStateToProps)(TaskList)
