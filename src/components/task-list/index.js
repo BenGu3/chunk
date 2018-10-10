@@ -1,32 +1,31 @@
 import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
-import { FAB } from 'react-native-paper'
+import { StyleSheet, Text, View } from 'react-native';
+import { FAB } from 'react-native-paper';
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
-import { addEvent } from '../../actions/CalendarActions'
+import { addTask } from '../../actions/TaskListActions'
 
-
-class Calendar extends React.Component {
+class TaskList extends React.Component {
   constructor(props) {
     super(props)
     this.handleOnPress = this.handleOnPress.bind(this)
   }
 
   handleOnPress() {
-    const { events } = this.props.calendar
-    const length = events ? events.length : 0
-    this.props.addEvent({
-      name: 'event' + length,
+    const { tasks } = this.props.taskList
+    const length = tasks ? tasks.length : 0
+    this.props.addTask({
+      name: 'task' + length,
       id: length
     })
   }
 
-  renderEvents() {
-    return this.props.calendar.events.map(event => {
+  renderTasks() {
+    return this.props.taskList.tasks.map(task => {
       return (
-        <Text key={event.id} style={{ textAlign: 'center' }}>
-          {event.name}
+        <Text key={task.id} style={{ textAlign: 'center' }}>
+          {task.name}
         </Text>
       )
     })
@@ -35,8 +34,8 @@ class Calendar extends React.Component {
   render() {
     return (
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <Text style={{ textAlign: 'center' }}>Calendar</Text>
-        {this.renderEvents()}
+        <Text style={{ textAlign: 'center' }}>TaskList</Text>
+        {this.renderTasks()}
         <FAB
           style={styles.fab}
           color='white'
@@ -60,14 +59,14 @@ const styles = StyleSheet.create({
 })
 
 const mapStateToProps = (state) => {
-  const { calendar } = state
-  return { calendar }
+  const { taskList } = state
+  return { taskList }
 }
 
 const mapDispatchToProps = dispatch => (
   bindActionCreators({
-    addEvent,
+    addTask,
   }, dispatch)
 )
 
-export default connect(mapStateToProps, mapDispatchToProps)(Calendar)
+export default connect(mapStateToProps, mapDispatchToProps)(TaskList)

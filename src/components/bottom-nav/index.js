@@ -3,11 +3,11 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs';
 
 import Calendar from '../calendar'
-import ChunkList from '../chunk-list'
+import TaskList from '../task-list'
 
 export default createMaterialBottomTabNavigator({
   Drawer: {
-    screen: ChunkList,
+    screen: TaskList,
     navigationOptions: {
       tabBarIcon: ({ tintColor, focused }) => (
         <Icon size={25} name={'md-menu'} style={{ color: tintColor }} />
@@ -15,8 +15,8 @@ export default createMaterialBottomTabNavigator({
       tabBarOnPress: handleTabBarOnPress
     }
   },
-  ChunkList: {
-    screen: ChunkList,
+  TaskList: {
+    screen: TaskList,
     navigationOptions: {
       tabBarIcon: ({ tintColor, focused }) => (
         <Icon size={25} name={'md-checkmark-circle-outline'} style={{ color: tintColor }} />
