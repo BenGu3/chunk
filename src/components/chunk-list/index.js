@@ -1,26 +1,26 @@
 import React from 'react'
-import { Platform, StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import { FAB } from 'react-native-paper';
 
-export default class Calendar extends React.Component {
+export default class ChunkList extends React.Component {
   constructor(props) {
     super(props)
   }
 
   handleOnPress() {
-    console.log('Calendar Add Pressed')
+    console.log('ChunkList Add Pressed')
   }
 
   render() {
     return (
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <Text style={{ textAlign: 'center' }}>Calendar</Text>
+        <Text style={{ textAlign: 'center' }}>ChunkList</Text>
         <FAB
           style={styles.fab}
           color='white'
           small
           icon="add"
-          onPress={this.handleOnPress()}
+          onPress={this.handleOnPress}
         />
       </View>
     )
