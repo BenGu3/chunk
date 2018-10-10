@@ -10,6 +10,7 @@ import AddDialog from '../add-dialog'
 class Calendar extends React.Component {
   constructor(props) {
     super(props)
+    this.renderAddDialog = this.renderAddDialog.bind(this)
     this.handleOnPress = this.handleOnPress.bind(this)
     this.handleOnAddDialogClose = this.handleOnAddDialogClose.bind(this)
     this.state = {
@@ -41,12 +42,22 @@ class Calendar extends React.Component {
     })
   }
 
+  renderAddDialog() {
+    const { isDialogOpen } = this.state
+    return isDialogOpen && (
+      <AddDialog
+        createType='event'
+        isDialogOpen={this.state.isDialogOpen}
+        onClose={this.handleOnAddDialogClose}/>
+    )
+  }
+
   render() {
     return (
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
         <Text style={{ textAlign: 'center' }}>Calendar</Text>
         {this.renderEvents()}
-        <AddDialog isDialogOpen={this.state.isDialogOpen} onClose={this.handleOnAddDialogClose}/>
+        {this.renderAddDialog()}
         <FAB
           style={styles.fab}
           color='white'
