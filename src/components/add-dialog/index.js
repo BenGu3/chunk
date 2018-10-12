@@ -85,7 +85,9 @@ class AddDialog extends React.Component {
       })
     } else if (this.state.createType === 'task') {
       const { tasks } = this.props.taskList
-      const length = tasks ? tasks.length : 0
+      const length = Object.keys(tasks).reduce((taskCount, currentTaskGroup) => {
+        return taskCount + tasks[currentTaskGroup].length
+      }, 0)
       this.props.addTask({
         ...this.state.task,
         id: length
@@ -97,7 +99,6 @@ class AddDialog extends React.Component {
 
   formatTime(date) {
     return date.toLocaleString('en-US', {
-      // weekday: 'short',
       day: 'numeric',
       month: 'short',
       year: 'numeric',

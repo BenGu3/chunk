@@ -32,7 +32,7 @@ export default createMaterialBottomTabNavigator({
     }
   },
 }, {
-  initialRouteName: 'Calendar',
+  initialRouteName: 'TaskList',
   activeColor: '#4646FF',
   inactiveColor: '#373737',
   barStyle: { backgroundColor: '#ffffff' },

@@ -1,9 +1,13 @@
 import React from 'react'
 import { StyleSheet, Text, View } from 'react-native';
-import { FAB } from 'react-native-paper';
+import { Checkbox, FAB } from 'react-native-paper';
 import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
 
 import AddDialog from '../add-dialog'
+
+import { addTask, editTask } from '../../actions/TaskListActions'
+import { addEvent } from '../../actions/CalendarActions';
 
 class TaskList extends React.Component {
   constructor(props) {
@@ -24,12 +28,33 @@ class TaskList extends React.Component {
     this.setState({ isDialogOpen: true })
   }
 
-  renderTasks() {
-    return this.props.taskList.tasks.map(task => {
-      return (
-        <Text key={task.id} style={{ textAlign: 'center' }}>
+  renderTask(task, taskGroupName) {
+    return (
+      <View style={styles.taskList} key={task.id}>
+        <Checkbox
+          status={task.completed ? 'checked' : 'unchecked'}
+          color={'black'}
+          uncheckedColor={'black'}
+          onPress={() => this.props.editTask({ ...task, completed: !task.completed }, taskGroupName)}
+        />
+        <Text>
           {task.name}
         </Text>
+        <Text>
+          {task.dueTime}
+        </Text>
+      </View>
+    )
+  }
+
+  renderTaskList() {
+    const { tasks } = this.props.taskList
+    return Object.keys(tasks).map(taskGroupName => {
+      return (
+        <View style={{ marginTop: '5%' }} key={taskGroupName}>
+          <Text>{taskGroupName}</Text>
+          {tasks[taskGroupName].map(task => (this.renderTask(task, taskGroupName)))}
+        </View>
       )
     })
   }
@@ -46,9 +71,11 @@ class TaskList extends React.Component {
 
   render() {
     return (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <Text style={{ textAlign: 'center' }}>TaskList</Text>
-        {this.renderTasks()}
+      <View style={{
+        flex: 1, justifyContent: 'flex-start', alignItems: 'flex-start', marginTop: '10%', marginHorizontal: '5%'
+      }}>
+        <Text style={{ textAlign: 'center' }}>Tasks</Text>
+        {this.renderTaskList()}
         {this.renderAddDialog()}
         <FAB
           style={styles.fab}
@@ -70,6 +97,15 @@ const styles = StyleSheet.create({
     right: 0,
     bottom: 0,
   },
+  taskList: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginHorizontal: '5%',
+    marginVertical: '.5%',
+    width: '100%'
+  }
 })
 
 const mapStateToProps = (state) => {
@@ -77,4 +113,10 @@ const mapStateToProps = (state) => {
   return { taskList }
 }
 
-export default connect(mapStateToProps)(TaskList)
+const mapDispatchToProps = dispatch => (
+  bindActionCreators({
+    editTask
+  }, dispatch)
+)
+
+export default connect(mapStateToProps, mapDispatchToProps)(TaskList)
