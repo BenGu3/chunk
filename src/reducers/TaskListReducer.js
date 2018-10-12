@@ -1,3 +1,4 @@
+import { getCalendarFormatted } from '../date-util'
 import TYPES from '../actions/types'
 
 const getDueTime = (task) => {
@@ -15,7 +16,24 @@ const getShortDueDate = (task) => {
 }
 
 const INITIAL_STATE = {
-  tasks: {}
+  tasks: {
+    'Today': [
+      {
+        dueTime: "12:15 PM",
+        id: 0,
+        name: "Asdad"
+      }
+    ]
+  },
+  tasksByDay: {
+    '2018-10-12': [
+      {
+        dueTime: new Date(),
+        id: 0,
+        name: "Asdad"
+      }
+    ]
+  }
 }
 
 export const taskListReducer = (state = INITIAL_STATE, action) => {
@@ -35,9 +53,13 @@ function handleAddTask(state, action) {
   const today = new Date()
   const tomorrow = new Date()
   tomorrow.setDate(today.getDate() + 1)
+  const dueDate = getCalendarFormatted(task.dueTime)
 
-  const dueDate = task.dueTime.toDateString()
-  if (dueDate === today.toDateString()) {
+  if (!state.tasksByDay[dueDate]) {
+    state.tasksByDay[dueDate] = []
+  }
+
+  if (dueDate === getCalendarFormatted(today)) {
     if (!state.tasks['Today']) {
       state.tasks['Today'] = []
     }
@@ -49,9 +71,16 @@ function handleAddTask(state, action) {
           ...state.tasks['Today'],
           { ...task, dueTime: getDueTime(task) }
         ]
+      },
+      tasksByDay: {
+        ...state.tasksByDay,
+        [dueDate]: [
+          ...state.tasksByDay[dueDate],
+          task
+        ]
       }
     }
-  } else if (dueDate === tomorrow.toDateString()) {
+  } else if (dueDate === getCalendarFormatted(tomorrow)) {
     if (!state.tasks['Tomorrow']) {
       state.tasks['Tomorrow'] = []
     }
@@ -62,6 +91,13 @@ function handleAddTask(state, action) {
         'Tomorrow': [
           ...state.tasks['Tomorrow'],
           { ...task, dueTime: getDueTime(task) }
+        ]
+      },
+      tasksByDay: {
+        ...state.tasksByDay,
+        [dueDate]: [
+          ...state.tasksByDay[dueDate],
+          task
         ]
       }
     }
@@ -77,6 +113,13 @@ function handleAddTask(state, action) {
         [shortDueDate]: [
           ...state.tasks[shortDueDate],
           { ...task, dueTime: getDueTime(task) }
+        ]
+      },
+      tasksByDay: {
+        ...state.tasksByDay,
+        [dueDate]: [
+          ...state.tasksByDay[dueDate],
+          task
         ]
       }
     }

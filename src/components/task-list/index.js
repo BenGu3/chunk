@@ -1,6 +1,7 @@
 import React from 'react'
 import { StyleSheet, Text, View } from 'react-native';
-import { Checkbox, FAB } from 'react-native-paper';
+import { Checkbox } from 'react-native-material-ui'
+import { FAB } from 'react-native-paper';
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
@@ -32,14 +33,11 @@ class TaskList extends React.Component {
     return (
       <View style={styles.taskList} key={task.id}>
         <Checkbox
-          status={task.completed ? 'checked' : 'unchecked'}
-          color={'black'}
-          uncheckedColor={'black'}
-          onPress={() => this.props.editTask({ ...task, completed: !task.completed }, taskGroupName)}
+          checked={task.completed}
+          label={task.name}
+          value=''
+          onCheck={() => this.props.editTask({ ...task, completed: !task.completed }, taskGroupName)}
         />
-        <Text>
-          {task.name}
-        </Text>
         <Text>
           {task.dueTime}
         </Text>

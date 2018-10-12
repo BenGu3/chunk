@@ -6,20 +6,11 @@ import Calendar from '../calendar'
 import TaskList from '../task-list'
 
 export default createMaterialBottomTabNavigator({
-  Drawer: {
-    screen: TaskList,
-    navigationOptions: {
-      tabBarIcon: ({ tintColor, focused }) => (
-        <Icon size={25} name={'md-menu'} style={{ color: tintColor }} />
-      ),
-      tabBarOnPress: handleTabBarOnPress
-    }
-  },
   TaskList: {
     screen: TaskList,
     navigationOptions: {
       tabBarIcon: ({ tintColor, focused }) => (
-        <Icon size={25} name={'md-checkmark-circle-outline'} style={{ color: tintColor }} />
+        <Icon size={25} name={'md-list'} style={{ color: tintColor }} />
       )
     }
   },
@@ -32,14 +23,9 @@ export default createMaterialBottomTabNavigator({
     }
   },
 }, {
-  initialRouteName: 'TaskList',
+  initialRouteName: 'Calendar',
   activeColor: '#4646FF',
   inactiveColor: '#373737',
   barStyle: { backgroundColor: '#ffffff' },
   labeled: false
 })
-
-function handleTabBarOnPress(onPressProps) {
-  const { defaultHandler, navigation } = onPressProps
-  defaultHandler(navigation)
-}
