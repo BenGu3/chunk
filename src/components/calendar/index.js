@@ -13,6 +13,7 @@ class Calendar extends React.Component {
     super(props)
     this.renderAddDialog = this.renderAddDialog.bind(this)
     this.handleOnPress = this.handleOnPress.bind(this)
+    this.handleTaskPinPressed = this.handleTaskPinPressed.bind(this)
     this.handleOnAddDialogClose = this.handleOnAddDialogClose.bind(this)
     this.state = {
       isDialogOpen: false
@@ -27,28 +28,32 @@ class Calendar extends React.Component {
     this.setState({ isDialogOpen: true })
   }
 
-  renderTasks(taskCount) {
-    if (!taskCount)
+  handleTaskPinPressed(currentDate) {
+    return (() => {
+      this.props.navigation.navigate('TaskList', { currentDate })
+    })
+  }
+
+  renderTasks(currentDate) {
+    const taskCountForDay = this.props.taskList.tasksByDay[currentDate] && this.props.taskList.tasksByDay[currentDate].length
+    if (!taskCountForDay)
       return
 
     return (
       <TaskPin
-        numberOfTasks={taskCount}
+        numberOfTasks={taskCountForDay}
         styles={styles.fab}
-        onPress={() => {
-          console.log('pressed')
-        }}
+        onPress={this.handleTaskPinPressed(currentDate)}
       />
     )
   }
 
   renderEvent(event) {
     const currentDate = getCalendarFormatted(event.startTime)
-    const taskCountForDay = this.props.taskList.tasksByDay[currentDate] && this.props.taskList.tasksByDay[currentDate].length
     return (
       <View style={styles.event}>
         <Text>{event.name}</Text>
-        {this.renderTasks(taskCountForDay)}
+        {this.renderTasks(currentDate)}
       </View>
 
     )
