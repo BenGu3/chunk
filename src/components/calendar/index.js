@@ -5,7 +5,7 @@ import { FAB } from 'react-native-paper'
 import { connect } from 'react-redux'
 
 import AddDialog from '../add-dialog'
-import { getCalendarFormatted } from '../../date-util';
+import { getCalendarFormattedDate } from '../../date-util';
 import TaskPin from './task-pin'
 
 class Calendar extends React.Component {
@@ -34,11 +34,11 @@ class Calendar extends React.Component {
     })
   }
 
-  renderTasks(currentDate) {
-    const taskCountForDay = this.props.taskList.tasksByDay[currentDate] && this.props.taskList.tasksByDay[currentDate].length
-    if (!taskCountForDay)
+  renderTasksForDate(task, isFirstTask) {
+    if (!isFirstTask)
       return
-
+    const currentDate = getCalendarFormattedDate(task.dueTime)
+    const taskCountForDay = this.props.taskList.tasks[currentDate] && this.props.taskList.tasks[currentDate].length
     return (
       <TaskPin
         numberOfTasks={taskCountForDay}
@@ -48,14 +48,26 @@ class Calendar extends React.Component {
     )
   }
 
-  renderEvent(event) {
-    const currentDate = getCalendarFormatted(event.startTime)
+  renderEventsForDate(event) {
     return (
       <View style={styles.event}>
         <Text>{event.name}</Text>
-        {this.renderTasks(currentDate)}
       </View>
+    )
+  }
 
+  renderItem(item, isFirstItem) {
+    if (item.type === 'event') {
+      return this.renderEventsForDate(item)
+    } else if (item.type === 'task') {
+      return this.renderTasksForDate(item, isFirstItem)
+    }
+  }
+
+  renderEmptyDate() {
+    return (
+      <View style={styles.emptyDate}>
+      </View>
     )
   }
 
@@ -63,8 +75,9 @@ class Calendar extends React.Component {
     return (
       <Agenda
         style={{ height: '100%', width: '100%' }}
-        items={this.props.calendar.events}
-        renderItem={this.renderEvent.bind(this)}
+        items={this.props.calendarItems}
+        renderEmptyDate={this.renderEmptyDate.bind(this)}
+        renderItem={this.renderItem.bind(this)}
         rowHasChanged={(r1, r2) => {
           return r1.name !== r2.name
         }}
@@ -123,7 +136,35 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state) => {
   const { calendar, taskList } = state
-  return { calendar, taskList }
+  let calendarItems = {}
+
+  Object.keys(calendar.events).map(eventTimeGroup => {
+    if (!calendarItems[eventTimeGroup]) {
+      calendarItems[eventTimeGroup] = []
+    }
+    calendarItems = {
+      ...calendarItems,
+      [eventTimeGroup]: [
+        ...calendarItems[eventTimeGroup],
+        ...calendar.events[eventTimeGroup]
+      ]
+    }
+  })
+
+  Object.keys(taskList.tasks).map(taskTimeGroup => {
+    if (!calendarItems[taskTimeGroup]) {
+      calendarItems[taskTimeGroup] = []
+    }
+    calendarItems = {
+      ...calendarItems,
+      [taskTimeGroup]: [
+        ...calendarItems[taskTimeGroup],
+        ...taskList.tasks[taskTimeGroup]
+      ]
+    }
+  })
+
+  return { calendarItems, taskList }
 }
 
 export default connect(mapStateToProps)(Calendar)

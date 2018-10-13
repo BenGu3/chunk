@@ -81,7 +81,8 @@ class AddDialog extends React.Component {
       const length = events ? events.length : 0
       this.props.addEvent({
         ...this.state.event,
-        id: length
+        id: length,
+        type: 'event'
       })
     } else if (this.state.createType === 'task') {
       const { tasks } = this.props.taskList
@@ -90,7 +91,8 @@ class AddDialog extends React.Component {
       }, 0)
       this.props.addTask({
         ...this.state.task,
-        id: length
+        id: length,
+        type: 'task'
       })
     }
     this.handleOnDialogClose()

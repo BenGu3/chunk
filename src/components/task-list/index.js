@@ -9,6 +9,7 @@ import AddDialog from '../add-dialog'
 
 import { addTask, editTask } from '../../actions/TaskListActions'
 import { addEvent } from '../../actions/CalendarActions';
+import { getDueTime, getTaskFormattedDate, isToday, isTomorrow } from '../../date-util';
 
 class TaskList extends React.Component {
   constructor(props) {
@@ -39,7 +40,7 @@ class TaskList extends React.Component {
           onCheck={() => this.props.editTask({ ...task, completed: !task.completed }, taskGroupName)}
         />
         <Text>
-          {task.dueTime}
+          {getDueTime(task.dueTime)}
         </Text>
       </View>
     )
@@ -47,11 +48,17 @@ class TaskList extends React.Component {
 
   renderTaskList() {
     const { tasks } = this.props.taskList
-    return Object.keys(tasks).map(taskGroupName => {
+    return Object.keys(tasks).map(taskGroupDate => {
       return (
-        <View style={{ marginTop: '5%' }} key={taskGroupName}>
-          <Text>{taskGroupName}</Text>
-          {tasks[taskGroupName].map(task => (this.renderTask(task, taskGroupName)))}
+        <View style={{ marginTop: '5%' }} key={taskGroupDate}>
+          <Text>
+            {isToday(taskGroupDate)
+              ? 'Today'
+              : (isTomorrow(taskGroupDate)
+                ? 'Tomorrow'
+                : getTaskFormattedDate(taskGroupDate))}
+          </Text>
+          {tasks[taskGroupDate].map(task => (this.renderTask(task, taskGroupDate)))}
         </View>
       )
     })
