@@ -3,7 +3,8 @@ export const getCalendarFormattedDate = (date) => {
 }
 
 export const getTaskFormattedDate = (calendarDate) => {
-  const fullDate = new Date(calendarDate + ' MDT')
+  const parsedDate = calendarDate.split('-')
+  const fullDate = new Date(parsedDate[0], parsedDate[1] - 1, parsedDate[2])
   return fullDate.toLocaleString('en-US', {
     day: 'numeric',
     month: 'short'
