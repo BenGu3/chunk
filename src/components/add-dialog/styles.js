@@ -13,11 +13,13 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
   },
   timeSelector: {
-    color: '#000000',
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center'
+  },
+  timeSelectorColor: {
+    color: '#000000'
   },
   buttons: {
     flexDirection: 'row',

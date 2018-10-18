@@ -35,14 +35,13 @@ class Calendar extends React.Component {
   }
 
   renderTasksForDate(task, isFirstTask) {
-    if (!isFirstTask)
+    if (!isFirstTask || task.completed)
       return
     const currentDate = getCalendarFormattedDate(task.dueTime)
     const taskCountForDay = this.props.taskList.tasks[currentDate] && this.props.taskList.tasks[currentDate].length
     return (
       <TaskPin
         numberOfTasks={taskCountForDay}
-        styles={styles.fab}
         onPress={this.handleTaskPinPressed(currentDate)}
       />
     )
@@ -59,7 +58,7 @@ class Calendar extends React.Component {
   renderItem(item, isFirstItem) {
     if (item.type === 'event') {
       return this.renderEventsForDate(item)
-    } else if (item.type === 'task') {
+    } else if (item.type === 'task' && !item.completed) {
       return this.renderTasksForDate(item, isFirstItem)
     }
   }
@@ -103,7 +102,6 @@ class Calendar extends React.Component {
         <FAB
           style={styles.fab}
           color='white'
-          small
           icon="add"
           onPress={this.handleOnPress}
         />
@@ -138,19 +136,6 @@ const mapStateToProps = (state) => {
   const { calendar, taskList } = state
   let calendarItems = {}
 
-  Object.keys(calendar.events).map(eventTimeGroup => {
-    if (!calendarItems[eventTimeGroup]) {
-      calendarItems[eventTimeGroup] = []
-    }
-    calendarItems = {
-      ...calendarItems,
-      [eventTimeGroup]: [
-        ...calendarItems[eventTimeGroup],
-        ...calendar.events[eventTimeGroup]
-      ]
-    }
-  })
-
   Object.keys(taskList.tasks).map(taskTimeGroup => {
     if (!calendarItems[taskTimeGroup]) {
       calendarItems[taskTimeGroup] = []
@@ -160,6 +145,19 @@ const mapStateToProps = (state) => {
       [taskTimeGroup]: [
         ...calendarItems[taskTimeGroup],
         ...taskList.tasks[taskTimeGroup]
+      ]
+    }
+  })
+
+  Object.keys(calendar.events).map(eventTimeGroup => {
+    if (!calendarItems[eventTimeGroup]) {
+      calendarItems[eventTimeGroup] = []
+    }
+    calendarItems = {
+      ...calendarItems,
+      [eventTimeGroup]: [
+        ...calendarItems[eventTimeGroup],
+        ...calendar.events[eventTimeGroup]
       ]
     }
   })

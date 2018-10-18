@@ -123,7 +123,7 @@ class AddDialog extends React.Component {
         />
         <View style={styles.timeSelector}>
           <Text>Starts</Text>
-          <Button color={styles.timeSelector.color} onPress={() => this.setState({ isStartTimePickerVisible: true })}>
+          <Button color={styles.timeSelectorColor} onPress={() => this.setState({ isStartTimePickerVisible: true })}>
             {this.formatTime(startTime)}
           </Button>
           <DateTimePicker
@@ -137,7 +137,7 @@ class AddDialog extends React.Component {
         </View>
         <View style={styles.timeSelector}>
           <Text>Ends</Text>
-          <Button color={styles.timeSelector.color} onPress={() => this.setState({ isEndTimePickerVisible: true })}>
+          <Button color={styles.timeSelectorColor} onPress={() => this.setState({ isEndTimePickerVisible: true })}>
             {this.formatTime(endTime)}
           </Button>
           <DateTimePicker
@@ -167,7 +167,7 @@ class AddDialog extends React.Component {
         />
         <View style={styles.timeSelector}>
           <Text>Due</Text>
-          <Button color={styles.timeSelector.color} onPress={() => this.setState({ isDueTimePickerVisible: true })}>
+          <Button color={styles.timeSelectorColor} onPress={() => this.setState({ isDueTimePickerVisible: true })}>
             {this.formatTime(dueTime)}
           </Button>
           <DateTimePicker

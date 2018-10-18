@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import { Button, Text } from 'react-native'
+import { Button, StyleSheet, Text } from 'react-native'
 import { FAB } from 'react-native-paper'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
@@ -16,7 +16,7 @@ export default class TaskPin extends React.Component {
   render() {
     return (
       <FAB
-        style={this.props.styles}
+        style={styles.fab}
         small
         icon={<Icon name={'circle'}/>}
         onPress={this.props.onPress}
@@ -24,3 +24,13 @@ export default class TaskPin extends React.Component {
     )
   }
 }
+
+const styles = StyleSheet.create({
+  fab: {
+    backgroundColor: '#4646FF',
+    position: 'absolute',
+    margin: 16,
+    right: 0,
+    bottom: 0,
+  }
+})

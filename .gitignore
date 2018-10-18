@@ -1,7 +1,3 @@
-# my stuff
-package-lock.json
-yarn.lock
-
 # OSX
 #
 .DS_Store

@@ -85,7 +85,6 @@ class TaskList extends React.Component {
         <FAB
           style={styles.fab}
           color='white'
-          small
           icon="add"
           onPress={this.handleOnPress}
         />

@@ -1,13 +1,17 @@
 {
   "name": "chunk",
-  "version": "0.0.1",
+  "main": "node_modules/expo/AppEntry.js",
   "private": true,
   "scripts": {
-    "start": "node node_modules/react-native/local-cli/cli.js start",
-    "ios": "react-native run-ios"
+    "start": "expo start",
+    "android": "expo start --android",
+    "ios": "expo start --ios",
+    "eject": "expo eject"
   },
   "dependencies": {
-    "react": "16.5.0",
+    "expo": "^30.0.1",
+    "react": "16.3.1",
+    "react-native": "https://github.com/expo/react-native/archive/sdk-30.0.0.tar.gz",
     "react-native-calendars": "^1.21.0",
     "react-native-material-bottom-navigation": "^1.0.1",
     "react-native-material-dropdown": "^0.11.1",
@@ -23,7 +27,6 @@
   "devDependencies": {
     "babel-eslint": "^10.0.1",
     "eslint": "^5.6.1",
-    "eslint-plugin-react": "^7.11.1",
-    "react-native": "^0.57.2"
+    "eslint-plugin-react": "^7.11.1"
   }
 }
