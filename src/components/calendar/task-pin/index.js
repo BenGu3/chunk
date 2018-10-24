@@ -13,12 +13,22 @@ export default class TaskPin extends React.Component {
     styles: object
   }
 
+  renderIcon() {
+    const { numberOfTasks } = this.props
+    if (numberOfTasks > 1) {
+      return <Icon name={'checkbox-multiple-blank-outline'}/>
+    } else {
+      return <Icon name={'checkbox-blank-outline'}/>
+    }
+  }
+
   render() {
     return (
       <FAB
         style={styles.fab}
         small
-        icon={<Icon name={'circle'}/>}
+        // icon={() => this.renderIcon()}
+        icon='check-box-outline-blank'
         onPress={this.props.onPress}
       />
     )

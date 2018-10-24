@@ -98,6 +98,7 @@ class Calendar extends React.Component {
     return (
       <Agenda
         style={{ height: '100%', width: '100%' }}
+        hideKnob={true}
         items={this.props.calendarItems}
         onDayPress={this.handleDayPress.bind(this)}
         renderEmptyDate={this.renderEmptyDate.bind(this)}

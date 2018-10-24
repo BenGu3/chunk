@@ -89,7 +89,6 @@ class TaskList extends React.Component {
 
   renderAddUpdateDialog() {
     const { isDialogOpen, isUpdateDialog, taskToUpdate } = this.state
-    console.log('isUpdateDialog:', isUpdateDialog)
     return isDialogOpen && (
       <AddUpdateDialog
         createType='task'
@@ -103,19 +102,21 @@ class TaskList extends React.Component {
 
   render() {
     return (
-      <ScrollView contentContainerStyle={{
-        flex: 1, justifyContent: 'flex-start', alignItems: 'flex-start', marginTop: '10%', marginHorizontal: '5%'
-      }}>
-        <Text style={{ textAlign: 'center' }}>Tasks</Text>
-        {this.renderTaskList()}
-        {this.renderAddUpdateDialog()}
+      <View style={{ flex: 1 }}>
+        <ScrollView contentContainerStyle={{
+          flex: 1, justifyContent: 'flex-start', alignItems: 'flex-start', marginTop: '10%', marginHorizontal: '5%'
+        }}>
+          <Text style={{ textAlign: 'center' }}>Tasks</Text>
+          {this.renderTaskList()}
+          {this.renderAddUpdateDialog()}
+        </ScrollView>
         <FAB
           style={styles.fab}
           color='white'
           icon="add"
           onPress={this.handleOnPress}
         />
-      </ScrollView>
+      </View>
     )
   }
 }
