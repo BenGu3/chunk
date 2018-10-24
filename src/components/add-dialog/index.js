@@ -92,6 +92,7 @@ class AddDialog extends React.Component {
       }, 0)
       this.props.addTask({
         ...this.state.task,
+        completed: false,
         id: length,
         type: 'task'
       })

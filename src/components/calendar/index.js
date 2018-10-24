@@ -75,6 +75,14 @@ class Calendar extends React.Component {
     this.setState({ currentDay: getDateFromTaskFormattedDate(day.dateString) })
   }
 
+  handleRowChange(r1, r2) {
+    if (r1.type === 'event') {
+      return (r1.startTime !== r2.startTime) || (r1.endTime !== r2.endTime) || (r1.name !== r2.name)
+    } else if (r1.type === 'task') {
+      return (r1.completed !== r2.completed) || (r1.dueTime !== r2.dueTime) || (r1.name !== r2.name)
+    }
+  }
+
   renderCalendar() {
     return (
       <Agenda
@@ -83,9 +91,7 @@ class Calendar extends React.Component {
         onDayPress={this.handleDayPress.bind(this)}
         renderEmptyDate={this.renderEmptyDate.bind(this)}
         renderItem={this.renderItem.bind(this)}
-        rowHasChanged={(r1, r2) => {
-          return r1.name !== r2.name
-        }}
+        rowHasChanged={this.handleRowChange.bind(this)}
       />
     )
   }
