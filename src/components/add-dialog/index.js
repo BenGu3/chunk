@@ -11,7 +11,7 @@ import { addEvent } from '../../actions/CalendarActions'
 import { addTask } from '../../actions/TaskListActions'
 import styles from './styles'
 
-const { bool, func, string } = PropTypes
+const { bool, func, object, string } = PropTypes
 
 const createTypeData = [
   {
@@ -27,6 +27,7 @@ const createTypeData = [
 class AddDialog extends React.Component {
   static propTypes = {
     createType: string.isRequired,
+    currentDay: object.isRequired,
     isDialogOpen: bool.isRequired,
     onClose: func.isRequired
   }
@@ -46,12 +47,12 @@ class AddDialog extends React.Component {
       isDueTimePickerVisible: false,
       event: {
         name: '',
-        startTime: new Date(),
-        endTime: new Date()
+        startTime: this.props.currentDay,
+        endTime: this.props.currentDay
       },
       task: {
         name: '',
-        dueTime: new Date()
+        dueTime: this.props.currentDay
       }
     }
   }
@@ -61,12 +62,12 @@ class AddDialog extends React.Component {
       createType,
       event: {
         name: '',
-        startTime: new Date(),
-        endTime: new Date()
+        startTime: this.props.currentDay,
+        endTime: this.props.currentDay
       },
       task: {
         name: '',
-        dueTime: new Date()
+        dueTime: this.props.currentDay
       }
     })
   }
@@ -127,6 +128,7 @@ class AddDialog extends React.Component {
             {this.formatTime(startTime)}
           </Button>
           <DateTimePicker
+            date={this.state.event.startTime}
             isVisible={this.state.isStartTimePickerVisible}
             mode='datetime'
             onConfirm={date => this.setState(prevState => (
@@ -141,6 +143,7 @@ class AddDialog extends React.Component {
             {this.formatTime(endTime)}
           </Button>
           <DateTimePicker
+            date={this.state.event.endTime}
             isVisible={this.state.isEndTimePickerVisible}
             mode='datetime'
             onConfirm={date => this.setState(prevState => (
@@ -173,6 +176,7 @@ class AddDialog extends React.Component {
           <DateTimePicker
             isVisible={this.state.isDueTimePickerVisible}
             mode='datetime'
+            date={this.state.task.dueTime}
             onConfirm={date => this.setState(prevState => (
               { task: { ...prevState.task, dueTime: date }, isDueTimePickerVisible: false })
             )}

@@ -11,6 +11,12 @@ export const getTaskFormattedDate = (calendarDate) => {
   })
 }
 
+export const getDateFromTaskFormattedDate = (taskFormattedDate) => {
+  const parsedDate = taskFormattedDate.split('-')
+  const fullDate = new Date(parsedDate[0], parsedDate[1] - 1, parsedDate[2])
+  return fullDate
+}
+
 export const getDueTime = (dueDate) => {
   return dueDate.toLocaleString('en-US', {
     hour: 'numeric',

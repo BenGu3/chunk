@@ -69,6 +69,7 @@ class TaskList extends React.Component {
     return isDialogOpen && (
       <AddDialog
         createType='task'
+        currentDay={new Date()}
         isDialogOpen={this.state.isDialogOpen}
         onClose={this.handleOnAddDialogClose}/>
     )

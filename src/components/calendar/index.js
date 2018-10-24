@@ -5,7 +5,7 @@ import { FAB } from 'react-native-paper'
 import { connect } from 'react-redux'
 
 import AddDialog from '../add-dialog'
-import { getCalendarFormattedDate } from '../../date-util';
+import { getCalendarFormattedDate, getDateFromTaskFormattedDate } from '../../date-util';
 import TaskPin from './task-pin'
 
 class Calendar extends React.Component {
@@ -16,7 +16,8 @@ class Calendar extends React.Component {
     this.handleTaskPinPressed = this.handleTaskPinPressed.bind(this)
     this.handleOnAddDialogClose = this.handleOnAddDialogClose.bind(this)
     this.state = {
-      isDialogOpen: false
+      isDialogOpen: false,
+      currentDay: new Date()
     }
   }
 
@@ -70,11 +71,16 @@ class Calendar extends React.Component {
     )
   }
 
+  handleDayPress(day) {
+    this.setState({ currentDay: getDateFromTaskFormattedDate(day.dateString) })
+  }
+
   renderCalendar() {
     return (
       <Agenda
         style={{ height: '100%', width: '100%' }}
         items={this.props.calendarItems}
+        onDayPress={this.handleDayPress.bind(this)}
         renderEmptyDate={this.renderEmptyDate.bind(this)}
         renderItem={this.renderItem.bind(this)}
         rowHasChanged={(r1, r2) => {
@@ -89,6 +95,7 @@ class Calendar extends React.Component {
     return isDialogOpen && (
       <AddDialog
         createType='event'
+        currentDay={this.state.currentDay}
         isDialogOpen={this.state.isDialogOpen}
         onClose={this.handleOnAddDialogClose}/>
     )
