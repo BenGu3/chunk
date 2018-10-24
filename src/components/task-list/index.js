@@ -1,33 +1,44 @@
 import React from 'react'
-import { StyleSheet, Text, View } from 'react-native';
+import { ScrollView, StyleSheet, Text, TouchableHighlight, View } from 'react-native';
 import { Checkbox } from 'react-native-material-ui'
 import { FAB } from 'react-native-paper';
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
-import AddDialog from '../add-dialog'
+import AddUpdateDialog from '../add-update-dialog'
 
-import { addTask, editTask } from '../../actions/TaskListActions'
+import { addTask, updateTask } from '../../actions/TaskListActions'
 import { addEvent } from '../../actions/CalendarActions'
 import { getDueTime, getTaskFormattedDate, isToday, isTomorrow, timeSorter } from '../../date-util'
 
 class TaskList extends React.Component {
   constructor(props) {
     super(props)
-    this.renderAddDialog = this.renderAddDialog.bind(this)
+    this.renderAddUpdateDialog = this.renderAddUpdateDialog.bind(this)
     this.handleOnPress = this.handleOnPress.bind(this)
-    this.handleOnAddDialogClose = this.handleOnAddDialogClose.bind(this)
+    this.handleOnAddUpdateDialogClose = this.handleOnAddUpdateDialogClose.bind(this)
+    this.handleUpdateTask = this.handleUpdateTask.bind(this)
     this.state = {
-      isDialogOpen: false
+      isDialogOpen: false,
+      isUpdateDialog: false,
+      taskToUpdate: {}
     }
   }
 
-  handleOnAddDialogClose() {
-    this.setState({ isDialogOpen: false })
+  handleOnAddUpdateDialogClose() {
+    this.setState({ isDialogOpen: false, isUpdateDialog: false, taskToUpdate: {} })
   }
 
   handleOnPress() {
     this.setState({ isDialogOpen: true })
+  }
+
+  handleUpdateTask(task) {
+    this.setState({
+      isDialogOpen: true,
+      isUpdateDialog: true,
+      taskToUpdate: task
+    })
   }
 
   renderTask(task, taskGroupName) {
@@ -35,13 +46,23 @@ class TaskList extends React.Component {
       <View style={styles.taskList} key={task.id}>
         <Checkbox
           checked={task.completed}
-          label={task.name}
+          label=''
           value=''
-          onCheck={() => this.props.editTask({ ...task, completed: !task.completed }, taskGroupName)}
+          onCheck={() => this.props.updateTask({ ...task, completed: !task.completed }, taskGroupName)}
+          style={{
+            container: { maxWidth: '10%' }
+          }}
         />
-        <Text>
-          {getDueTime(task.dueTime)}
-        </Text>
+        <TouchableHighlight onPress={() => this.handleUpdateTask(task)}>
+          <Text>
+            {task.name}
+          </Text>
+        </TouchableHighlight>
+        <TouchableHighlight onPress={() => this.handleUpdateTask(task)}>
+          <Text>
+            {getDueTime(task.dueTime)}
+          </Text>
+        </TouchableHighlight>
       </View>
     )
   }
@@ -49,6 +70,8 @@ class TaskList extends React.Component {
   renderTaskList() {
     const { tasks } = this.props.taskList
     return Object.keys(tasks).map(taskGroupDate => {
+      if (tasks[taskGroupDate].length === 0)
+        return
       return (
         <View style={{ marginTop: '5%' }} key={taskGroupDate}>
           <Text>
@@ -64,32 +87,35 @@ class TaskList extends React.Component {
     })
   }
 
-  renderAddDialog() {
-    const { isDialogOpen } = this.state
+  renderAddUpdateDialog() {
+    const { isDialogOpen, isUpdateDialog, taskToUpdate } = this.state
+    console.log('isUpdateDialog:', isUpdateDialog)
     return isDialogOpen && (
-      <AddDialog
+      <AddUpdateDialog
         createType='task'
         currentDay={new Date()}
         isDialogOpen={this.state.isDialogOpen}
-        onClose={this.handleOnAddDialogClose}/>
+        isUpdating={isUpdateDialog}
+        taskToUpdate={isUpdateDialog ? taskToUpdate : null}
+        onClose={this.handleOnAddUpdateDialogClose}/>
     )
   }
 
   render() {
     return (
-      <View style={{
+      <ScrollView contentContainerStyle={{
         flex: 1, justifyContent: 'flex-start', alignItems: 'flex-start', marginTop: '10%', marginHorizontal: '5%'
       }}>
         <Text style={{ textAlign: 'center' }}>Tasks</Text>
         {this.renderTaskList()}
-        {this.renderAddDialog()}
+        {this.renderAddUpdateDialog()}
         <FAB
           style={styles.fab}
           color='white'
           icon="add"
           onPress={this.handleOnPress}
         />
-      </View>
+      </ScrollView>
     )
   }
 }
@@ -124,7 +150,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = dispatch => (
   bindActionCreators({
-    editTask
+    updateTask
   }, dispatch)
 )
 

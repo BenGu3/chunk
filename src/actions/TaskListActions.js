@@ -7,10 +7,10 @@ export const addTask = (task) => {
   }
 }
 
-export const editTask = (task, taskGroupName) => {
+export const updateTask = (task, previousTaskGroupName) => {
   return {
-    type: TYPES.EDIT_TASK,
+    type: TYPES.UPDATE_TASK,
     task,
-    taskGroupName
+    previousTaskGroupName
   }
 }

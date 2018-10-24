@@ -1,28 +1,31 @@
 import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, TouchableHighlight, View } from 'react-native'
 import { Agenda } from 'react-native-calendars'
 import { FAB } from 'react-native-paper'
 import { connect } from 'react-redux'
 
-import AddDialog from '../add-dialog'
+import AddUpdateDialog from '../add-update-dialog'
 import { getCalendarFormattedDate, getDateFromTaskFormattedDate, timeSorter } from '../../date-util';
 import TaskPin from './task-pin'
 
 class Calendar extends React.Component {
   constructor(props) {
     super(props)
-    this.renderAddDialog = this.renderAddDialog.bind(this)
+    this.renderAddUpdateDialog = this.renderAddUpdateDialog.bind(this)
+    this.handleUpdateEvent = this.handleUpdateEvent.bind(this)
     this.handleOnPress = this.handleOnPress.bind(this)
     this.handleTaskPinPressed = this.handleTaskPinPressed.bind(this)
-    this.handleOnAddDialogClose = this.handleOnAddDialogClose.bind(this)
+    this.handleOnAddUpdateDialogClose = this.handleOnAddUpdateDialogClose.bind(this)
     this.state = {
+      eventToUpdate: {},
       isDialogOpen: false,
+      isUpdateDialog: false,
       currentDay: new Date()
     }
   }
 
-  handleOnAddDialogClose() {
-    this.setState({ isDialogOpen: false })
+  handleOnAddUpdateDialogClose() {
+    this.setState({ isDialogOpen: false, isUpdateDialog: false, eventToUpdate: {} })
   }
 
   handleOnPress() {
@@ -48,11 +51,19 @@ class Calendar extends React.Component {
     )
   }
 
+  handleUpdateEvent(event) {
+    this.setState({
+      isDialogOpen: true,
+      isUpdateDialog: true,
+      eventToUpdate: event
+    })
+  }
+
   renderEventsForDate(event) {
     return (
-      <View style={styles.event}>
+      <TouchableHighlight style={styles.event} onPress={() => this.handleUpdateEvent(event)}>
         <Text>{event.name}</Text>
-      </View>
+      </TouchableHighlight>
     )
   }
 
@@ -96,14 +107,16 @@ class Calendar extends React.Component {
     )
   }
 
-  renderAddDialog() {
-    const { isDialogOpen } = this.state
+  renderAddUpdateDialog() {
+    const { currentDay, isDialogOpen, isUpdateDialog, eventToUpdate } = this.state
     return isDialogOpen && (
-      <AddDialog
+      <AddUpdateDialog
         createType='event'
-        currentDay={this.state.currentDay}
-        isDialogOpen={this.state.isDialogOpen}
-        onClose={this.handleOnAddDialogClose}/>
+        currentDay={currentDay}
+        isDialogOpen={isDialogOpen}
+        isUpdating={isUpdateDialog}
+        eventToUpdate={isUpdateDialog ? eventToUpdate : null}
+        onClose={this.handleOnAddUpdateDialogClose}/>
     )
   }
 
@@ -111,7 +124,7 @@ class Calendar extends React.Component {
     return (
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
         {this.renderCalendar()}
-        {this.renderAddDialog()}
+        {this.renderAddUpdateDialog()}
         <FAB
           style={styles.fab}
           color='white'

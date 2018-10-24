@@ -7,8 +7,9 @@ import { Button, Dialog, Divider, IconButton, Portal, Text, TextInput } from 're
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
-import { addEvent } from '../../actions/CalendarActions'
-import { addTask } from '../../actions/TaskListActions'
+import { addEvent, updateEvent } from '../../actions/CalendarActions'
+import { getCalendarFormattedDate } from '../../date-util'
+import { addTask, updateTask } from '../../actions/TaskListActions'
 import styles from './styles'
 
 const { bool, func, object, string } = PropTypes
@@ -24,12 +25,14 @@ const createTypeData = [
   }
 ]
 
-class AddDialog extends React.Component {
+class AddUpdateDialog extends React.Component {
   static propTypes = {
     createType: string.isRequired,
     currentDay: object.isRequired,
     isDialogOpen: bool.isRequired,
-    isEditing: bool.isRequired,
+    isUpdating: bool.isRequired,
+    eventToUpdate: object,
+    taskToUpdate: object,
     onClose: func.isRequired
   }
 
@@ -38,22 +41,58 @@ class AddDialog extends React.Component {
     this.handleCreateTypeChange = this.handleCreateTypeChange.bind(this)
     this.handleOnDialogClose = this.handleOnDialogClose.bind(this)
     this.handleOnAdd = this.handleOnAdd.bind(this)
+    this.handleOnUpdate = this.handleOnUpdate.bind(this)
     this.renderEventOptions = this.renderEventOptions.bind(this)
     this.renderTaskOptions = this.renderTaskOptions.bind(this)
     this.renderOptions = this.renderOptions.bind(this)
-    this.state = {
-      createType: props.createType,
-      isStartTimePickerVisible: false,
-      isEndTimePickerVisible: false,
-      isDueTimePickerVisible: false,
-      event: {
-        name: '',
-        startTime: this.props.currentDay,
-        endTime: this.props.currentDay
-      },
-      task: {
-        name: '',
-        dueTime: this.props.currentDay
+    if (props.isUpdating && props.eventToUpdate) {
+      this.state = {
+        createType: props.createType,
+        isStartTimePickerVisible: false,
+        isEndTimePickerVisible: false,
+        isDueTimePickerVisible: false,
+        event: props.eventToUpdate,
+        task: {
+          name: '',
+          dueTime: this.props.currentDay,
+          id: null,
+          type: 'task'
+        }
+      }
+    } else if (props.isUpdating && props.taskToUpdate) {
+      this.state = {
+        createType: props.createType,
+        isStartTimePickerVisible: false,
+        isEndTimePickerVisible: false,
+        isDueTimePickerVisible: false,
+        event: {
+          name: '',
+          startTime: this.props.currentDay,
+          endTime: this.props.currentDay,
+          id: null,
+          type: 'event'
+        },
+        task: props.taskToUpdate
+      }
+    } else {
+      this.state = {
+        createType: props.createType,
+        isStartTimePickerVisible: false,
+        isEndTimePickerVisible: false,
+        isDueTimePickerVisible: false,
+        event: {
+          name: '',
+          startTime: this.props.currentDay,
+          endTime: this.props.currentDay,
+          id: null,
+          type: 'event'
+        },
+        task: {
+          name: '',
+          dueTime: this.props.currentDay,
+          id: null,
+          type: 'task'
+        }
       }
     }
   }
@@ -69,7 +108,9 @@ class AddDialog extends React.Component {
   handleOnAdd() {
     if (this.state.createType === 'event') {
       const { events } = this.props.calendar
-      const length = events ? events.length : 0
+      const length = Object.keys(events).reduce((eventCount, currentEventGroup) => {
+        return eventCount + events[currentEventGroup].length
+      }, 0)
       this.props.addEvent({
         ...this.state.event,
         id: length,
@@ -86,6 +127,16 @@ class AddDialog extends React.Component {
         id: length,
         type: 'task'
       })
+    }
+    this.handleOnDialogClose()
+  }
+
+  handleOnUpdate() {
+    const { createType, event, task } = this.state
+    if (createType === 'event') {
+      this.props.updateEvent(event, getCalendarFormattedDate(this.props.eventToUpdate.startTime))
+    } else if (createType === 'task') {
+      this.props.updateTask(task, getCalendarFormattedDate(this.props.taskToUpdate.dueTime))
     }
     this.handleOnDialogClose()
   }
@@ -186,8 +237,24 @@ class AddDialog extends React.Component {
     }
   }
 
+  renderSubmitButton() {
+    if (this.props.isUpdating) {
+      return (
+        <Button mode='contained' color={styles.main.color} onPress={this.handleOnUpdate}>
+          Update {this.state.createType}
+        </Button>
+      )
+    } else {
+      return (
+        <Button mode='contained' color={styles.main.color} onPress={this.handleOnAdd}>
+          Add {this.state.createType}
+        </Button>
+      )
+    }
+  }
+
   render() {
-    const { isDialogOpen } = this.props
+    const { isDialogOpen, isUpdating } = this.props
     return (
       <Portal>
         <Dialog visible={isDialogOpen} onDismiss={() => ({})} dismissable={false}>
@@ -202,9 +269,7 @@ class AddDialog extends React.Component {
             <Button mode='contained' color={styles.main.color} onPress={this.handleOnDialogClose}>
               Close
             </Button>
-            <Button mode='contained' color={styles.main.color} onPress={this.handleOnAdd}>
-              Add {this.state.createType}
-            </Button>
+            {this.renderSubmitButton()}
           </Dialog.Actions>
         </Dialog>
       </Portal>
@@ -220,8 +285,10 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = dispatch => (
   bindActionCreators({
     addEvent,
-    addTask
+    updateEvent,
+    addTask,
+    updateTask
   }, dispatch)
 )
 
-export default connect(mapStateToProps, mapDispatchToProps)(AddDialog)
+export default connect(mapStateToProps, mapDispatchToProps)(AddUpdateDialog)

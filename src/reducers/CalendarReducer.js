@@ -28,6 +28,8 @@ export const calendarReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case TYPES.ADD_EVENT:
       return handleAddEvent(state, action)
+    case TYPES.UPDATE_EVENT:
+      return handleUpdateEvent(state, action)
     default:
       return state
   }
@@ -47,6 +49,48 @@ function handleAddEvent(state, action) {
       ...state.events,
       [formattedStartTime]: [
         ...state.events[formattedStartTime],
+        event
+      ]
+    }
+  }
+}
+
+function handleUpdateEvent(state, action) {
+  const { event, previousEventGroupName } = action
+  const updatedStartDate = getCalendarFormattedDate(event.startTime)
+
+  if (!state.events[updatedStartDate]) {
+    state.events[updatedStartDate] = []
+  }
+
+  if (previousEventGroupName === updatedStartDate) {
+    return {
+      ...state,
+      events: {
+        ...state.events,
+        [previousEventGroupName]: [
+          ...state.events[previousEventGroupName].map(e => {
+            return e.id === event.id ? event : e
+          })
+        ]
+      }
+    }
+  }
+
+  return {
+    ...state,
+    events: {
+      ...state.events,
+      [previousEventGroupName]: [
+        ...state.events[previousEventGroupName].reduce((agg, e) => {
+          if (e.id !== event.id) {
+            return [...agg, e]
+          }
+          return agg
+        }, [])
+      ],
+      [updatedStartDate]: [
+        ...state.events[updatedStartDate],
         event
       ]
     }

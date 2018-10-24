@@ -6,3 +6,11 @@ export const addEvent = (event) => {
     event
   }
 }
+
+export const updateEvent = (event, previousEventGroupName) => {
+  return {
+    type: TYPES.UPDATE_EVENT,
+    event,
+    previousEventGroupName
+  }
+}
