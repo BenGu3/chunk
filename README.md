@@ -17,3 +17,4 @@ Event/Task Management
 
 `npm run start`
 
+4. Scan QR code with phone
