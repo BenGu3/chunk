@@ -33,3 +33,7 @@ export const isTomorrow = (date) => {
   newDate.setDate(newDate.getDate() + 1)
   return date === getCalendarFormattedDate(newDate)
 }
+
+export const timeSorter = (time1, time2) => {
+  return getDateFromTaskFormattedDate(time1) - getDateFromTaskFormattedDate(time2)
+}

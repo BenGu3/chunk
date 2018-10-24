@@ -5,7 +5,7 @@ import { FAB } from 'react-native-paper'
 import { connect } from 'react-redux'
 
 import AddDialog from '../add-dialog'
-import { getCalendarFormattedDate, getDateFromTaskFormattedDate } from '../../date-util';
+import { getCalendarFormattedDate, getDateFromTaskFormattedDate, timeSorter } from '../../date-util';
 import TaskPin from './task-pin'
 
 class Calendar extends React.Component {
@@ -169,7 +169,12 @@ const mapStateToProps = (state) => {
     }
   })
 
-  return { calendarItems, taskList }
+  const orderedCalendarItems = {}
+  Object.keys(calendarItems).sort(timeSorter).forEach(function(key) {
+    orderedCalendarItems[key] = calendarItems[key]
+  })
+
+  return { calendarItems: orderedCalendarItems, taskList }
 }
 
 export default connect(mapStateToProps)(Calendar)

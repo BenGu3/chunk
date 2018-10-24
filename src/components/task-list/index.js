@@ -8,8 +8,8 @@ import { bindActionCreators } from 'redux'
 import AddDialog from '../add-dialog'
 
 import { addTask, editTask } from '../../actions/TaskListActions'
-import { addEvent } from '../../actions/CalendarActions';
-import { getDueTime, getTaskFormattedDate, isToday, isTomorrow } from '../../date-util';
+import { addEvent } from '../../actions/CalendarActions'
+import { getDueTime, getTaskFormattedDate, isToday, isTomorrow, timeSorter } from '../../date-util'
 
 class TaskList extends React.Component {
   constructor(props) {
@@ -115,7 +115,11 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state) => {
   const { taskList } = state
-  return { taskList }
+  const orderedTasks = {}
+  Object.keys(taskList.tasks).sort(timeSorter).forEach(function(key) {
+    orderedTasks[key] = taskList.tasks[key]
+  })
+  return { taskList: { tasks: orderedTasks } }
 }
 
 const mapDispatchToProps = dispatch => (
