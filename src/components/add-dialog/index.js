@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import * as React from 'react'
-import { StyleSheet, View } from 'react-native';
+import { ScrollView, StyleSheet, View } from 'react-native';
 import { Dropdown } from 'react-native-material-dropdown'
 import DateTimePicker from 'react-native-modal-datetime-picker';
 import { Button, Dialog, Divider, IconButton, Portal, Text, TextInput } from 'react-native-paper'
@@ -113,7 +113,7 @@ class AddDialog extends React.Component {
   renderEventOptions() {
     const { name, startTime, endTime } = this.state.event
     return (
-      <View style={styles.optionsContainer}>
+      <ScrollView contentContainerStyle={styles.optionsContainer}>
         <TextInput
           label='Event Name'
           mode='outlined'
@@ -152,14 +152,14 @@ class AddDialog extends React.Component {
             onCancel={() => this.setState({ isEndTimePickerVisible: false })}
           />
         </View>
-      </View>
+      </ScrollView>
     )
   }
 
   renderTaskOptions() {
     const { name, dueTime } = this.state.task
     return (
-      <View style={styles.optionsContainer}>
+      <ScrollView contentContainerStyle={styles.optionsContainer}>
         <TextInput
           label='Task Name'
           mode='outlined'
@@ -183,7 +183,7 @@ class AddDialog extends React.Component {
             onCancel={() => this.setState({ isDueTimePickerVisible: false })}
           />
         </View>
-      </View>
+      </ScrollView>
     )
   }
 
