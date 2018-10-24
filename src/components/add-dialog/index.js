@@ -29,6 +29,7 @@ class AddDialog extends React.Component {
     createType: string.isRequired,
     currentDay: object.isRequired,
     isDialogOpen: bool.isRequired,
+    isEditing: bool.isRequired,
     onClose: func.isRequired
   }
 
@@ -58,18 +59,7 @@ class AddDialog extends React.Component {
   }
 
   handleCreateTypeChange(createType) {
-    this.setState({
-      createType,
-      event: {
-        name: '',
-        startTime: this.props.currentDay,
-        endTime: this.props.currentDay
-      },
-      task: {
-        name: '',
-        dueTime: this.props.currentDay
-      }
-    })
+    this.setState({ createType })
   }
 
   handleOnDialogClose() {
@@ -118,8 +108,8 @@ class AddDialog extends React.Component {
         <TextInput
           label='Event Name'
           mode='outlined'
-          onChangeText={eventName => this.setState(prevState => (
-            { event: { ...prevState.event, name: eventName } })
+          onChangeText={name => this.setState(prevState => (
+            { event: { ...prevState.event, name: name }, task: { ...prevState.task, name: name } })
           )}
           value={name}
         />
@@ -164,8 +154,8 @@ class AddDialog extends React.Component {
         <TextInput
           label='Task Name'
           mode='outlined'
-          onChangeText={taskName => this.setState(prevState => (
-            { task: { ...prevState.task, name: taskName } }
+          onChangeText={name => this.setState(prevState => (
+            { event: { ...prevState.event, name: name }, task: { ...prevState.task, name: name } }
           ))}
           value={name}
         />
