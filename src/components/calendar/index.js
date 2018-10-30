@@ -116,37 +116,43 @@ class Calendar extends React.Component {
         shadowOffset: { height: 5, width: 0 },
         backgroundColor: 'white',
       }}>
-        <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-around', maxHeight: 40 }}>
+        <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-around' }}>
           <Text style={{ fontSize: 20, fontWeight: '500' }}>{getDayOfWeek(currentDay)}</Text>
           <Text style={{ fontSize: 20, fontWeight: '500' }}>{getCalendarHeaderDate(currentDay)}</Text>
         </View>
-        <View
-          style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-around' }}>
-          {Object.keys(week).map(day => {
-            return (
-              <View
-                key={day + '-view'}
-                style={{
-                  flex: 1, flexDirection: 'column', justifyContent: 'space-around', alignItems: 'center',
-                  paddingBottom: 10
-                }}>
-                <Text key={day + '-name'} style={{ fontSize: 18, fontWeight: '400' }}>{day.split('')[0]}</Text>
-                <TouchableHighlight
-                  key={day}
-                  onPress={() => this.handleDayPress(week[day])}>
-                  <Text style={currentDay.getDate() === week[day].getDate()
-                    ? {
-                      backgroundColor: '#2c86e5', color: 'white', borderRadius: 2, overflow: 'hidden', width: 22,
-                      height: 22, textAlign: 'center', fontSize: 18, fontWeight: '400'
-                    }
-                    : {
-                      width: 22, height: 22, textAlign: 'center', fontSize: 18, fontWeight: '400'
-                    }}>{week[day].getDate()}</Text>
-                </TouchableHighlight>
-              </View>
-            )
-          })}
-        </View>
+        <GestureRecognizer
+          onSwipeLeft={(state) => this.setState(prevState => ({ currentDay: addDays(prevState.currentDay, 7) }))}
+          onSwipeRight={(state) => this.setState(prevState => ({ currentDay: addDays(prevState.currentDay, -7) }))}
+          style={{
+            flex: 1,
+            backgroundColor: 'white',
+          }}
+        >
+          <View
+            style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-around', marginBottom: 10 }}>
+            {Object.keys(week).map(day => {
+              return (
+                <View
+                  key={day + '-view'}
+                  style={{ flex: 1, flexDirection: 'column', justifyContent: 'space-around', alignItems: 'center', }}>
+                  <Text key={day + '-name'} style={{ fontSize: 18, fontWeight: '400' }}>{day.split('')[0]}</Text>
+                  <TouchableHighlight
+                    key={day}
+                    onPress={() => this.handleDayPress(week[day])}>
+                    <Text style={currentDay.getDate() === week[day].getDate()
+                      ? {
+                        backgroundColor: '#2c86e5', color: 'white', borderRadius: 4, overflow: 'hidden', width: 24,
+                        height: 24, textAlign: 'center', fontSize: 18, fontWeight: '400'
+                      }
+                      : {
+                        width: 24, height: 24, textAlign: 'center', fontSize: 18, fontWeight: '400'
+                      }}>{week[day].getDate()}</Text>
+                  </TouchableHighlight>
+                </View>
+              )
+            })}
+          </View>
+        </GestureRecognizer>
       </View>
     )
   }
@@ -212,22 +218,23 @@ class Calendar extends React.Component {
 
   renderCalendar() {
     return (
-      <GestureRecognizer
-        onSwipeLeft={(state) => this.setState(prevState => ({ currentDay: addDays(prevState.currentDay, 1) }))}
-        onSwipeRight={(state) => this.setState(prevState => ({ currentDay: addDays(prevState.currentDay, -1) }))}
-        style={{
-          flex: 1,
-          backgroundColor: 'white',
-          width: '100%',
-          paddingTop: 20
-        }}
-      >
+      <View style={{
+        flex: 1,
+        backgroundColor: 'white',
+        width: '100%',
+        paddingTop: 20
+      }}>
         {this.renderCalendarHeader()}
         <ScrollView style={{ backgroundColor: 'white', minHeight: 350 }}>
-          {this.renderItemsForToday()}
-          {this.renderTimeLines()}
+          <GestureRecognizer
+            onSwipeLeft={(state) => this.setState(prevState => ({ currentDay: addDays(prevState.currentDay, 1) }))}
+            onSwipeRight={(state) => this.setState(prevState => ({ currentDay: addDays(prevState.currentDay, -1) }))}
+          >
+            {this.renderItemsForToday()}
+            {this.renderTimeLines()}
+          </GestureRecognizer>
         </ScrollView>
-      </GestureRecognizer>
+      </View>
     )
   }
 
