@@ -8,7 +8,9 @@ import { connect } from 'react-redux'
 import AddUpdateDialog from '../add-update-dialog'
 import {
   addDays,
-  getCalendarFormattedDate, getCalendarHeaderDate,
+  getCalendarCurrentWeek,
+  getCalendarFormattedDate,
+  getCalendarHeaderDate,
   getDateFromTaskFormattedDate,
   getDayOfWeek,
   timeSorter
@@ -76,12 +78,12 @@ class Calendar extends React.Component {
   }
 
   handleDayPress(day) {
-    this.setState({ currentDay: getDateFromTaskFormattedDate(day.dateString) })
+    this.setState({ currentDay: day })
   }
 
   renderCalendarHeader() {
-
-
+    const { currentDay } = this.state
+    const week = getCalendarCurrentWeek(currentDay)
     return (
       <View style={{
         flex: 1,
@@ -93,31 +95,37 @@ class Calendar extends React.Component {
         shadowRadius: 3,
         shadowColor: 'black',
         shadowOffset: { height: 5, width: 0 },
-        backgroundColor: 'white'
+        backgroundColor: 'white',
       }}>
-        <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-around', paddingBottom: 10 }}>
-          <Text style={{ fontSize: 20, fontWeight: '500' }}>{getDayOfWeek(this.state.currentDay)}</Text>
-          <Text style={{ fontSize: 20, fontWeight: '500' }}>{getCalendarHeaderDate(this.state.currentDay)}</Text>
+        <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-around', maxHeight: 40 }}>
+          <Text style={{ fontSize: 20, fontWeight: '500' }}>{getDayOfWeek(currentDay)}</Text>
+          <Text style={{ fontSize: 20, fontWeight: '500' }}>{getCalendarHeaderDate(currentDay)}</Text>
         </View>
         <View
-          style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-around', paddingLeft: 10, paddingRight: 10 }}>
-          <Text>S</Text>
-          <Text>M</Text>
-          <Text>T</Text>
-          <Text>W</Text>
-          <Text>T</Text>
-          <Text>F</Text>
-          <Text>S</Text>
-        </View>
-        <View
-          style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-around', paddingLeft: 10, paddingRight: 10 }}>
-          <Text style={this.state.currentDay.getDay() === 0 ? { color: '#2c86e5' } : null}>S</Text>
-          <Text style={this.state.currentDay.getDay() === 1 ? { color: '#2c86e5' } : null}>M</Text>
-          <Text style={this.state.currentDay.getDay() === 2 ? { color: '#2c86e5' } : null}>T</Text>
-          <Text style={this.state.currentDay.getDay() === 3 ? { color: '#2c86e5' } : null}>W</Text>
-          <Text style={this.state.currentDay.getDay() === 4 ? { color: '#2c86e5' } : null}>T</Text>
-          <Text style={this.state.currentDay.getDay() === 5 ? { color: '#2c86e5' } : null}>F</Text>
-          <Text style={this.state.currentDay.getDay() === 6 ? { color: '#2c86e5' } : null}>S</Text>
+          style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-around' }}>
+          {Object.keys(week).map(day => {
+            return (
+              <View
+                key={day + '-view'}
+                style={{
+                  flex: 1, flexDirection: 'column', justifyContent: 'space-around', alignItems: 'center', paddingBottom: 10
+                }}>
+                <Text key={day + '-name'} style={{ fontSize: 18, fontWeight: '400' }}>{day.split('')[0]}</Text>
+                <TouchableHighlight
+                  key={day}
+                  onPress={() => this.handleDayPress(week[day])}>
+                  <Text style={currentDay.getDate() === week[day].getDate()
+                    ? {
+                      backgroundColor: '#2c86e5', color: 'white', borderRadius: 2, overflow: 'hidden', width: 22,
+                      height: 22, textAlign: 'center', fontSize: 18, fontWeight: '400'
+                    }
+                    : {
+                      width: 22, height: 22, textAlign: 'center', fontSize: 18, fontWeight: '400'
+                    }}>{week[day].getDate()}</Text>
+                </TouchableHighlight>
+              </View>
+            )
+          })}
         </View>
       </View>
     )
@@ -147,7 +155,7 @@ class Calendar extends React.Component {
         }}
       >
         {this.renderCalendarHeader()}
-        <View style={{ backgroundColor: 'white', height: '80%' }}>
+        <View style={{ backgroundColor: 'white', height: '75%' }}>
         </View>
       </GestureRecognizer>
     )

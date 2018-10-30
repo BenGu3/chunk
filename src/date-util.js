@@ -69,3 +69,79 @@ export function getCalendarHeaderDate(date) {
   ]
   return monthNames[date.getMonth()] + ' ' + date.getDate() + ', ' + date.getFullYear()
 }
+
+export function getCalendarCurrentWeek(date) {
+  switch (date.getDay()) {
+    case 0:
+      return {
+        'Sunday': date,
+        'Monday': addDays(date, 1),
+        'Tuesday': addDays(date, 2),
+        'Wednesday': addDays(date, 3),
+        'Thursday': addDays(date, 4),
+        'Friday': addDays(date, 5),
+        'Saturday': addDays(date, 6)
+      }
+    case 1:
+      return {
+        'Sunday': addDays(date, -1),
+        'Monday': date,
+        'Tuesday': addDays(date, 1),
+        'Wednesday': addDays(date, 2),
+        'Thursday': addDays(date, 3),
+        'Friday': addDays(date, 4),
+        'Saturday': addDays(date, 5)
+      }
+    case 2:
+      return {
+        'Sunday': addDays(date, -2),
+        'Monday': addDays(date, -1),
+        'Tuesday': date,
+        'Wednesday': addDays(date, 1),
+        'Thursday': addDays(date, 2),
+        'Friday': addDays(date, 3),
+        'Saturday': addDays(date, 4)
+      }
+    case 3:
+      return {
+        'Sunday': addDays(date, -3),
+        'Monday': addDays(date, -2),
+        'Tuesday': addDays(date, -1),
+        'Wednesday': date,
+        'Thursday': addDays(date, 1),
+        'Friday': addDays(date, 2),
+        'Saturday': addDays(date, 3)
+      }
+    case 4:
+      return {
+        'Sunday': addDays(date, -4),
+        'Monday': addDays(date, -3),
+        'Tuesday': addDays(date, -2),
+        'Wednesday': addDays(date, -1),
+        'Thursday': date,
+        'Friday': addDays(date, 1),
+        'Saturday': addDays(date, 2)
+      }
+    case 5:
+      return {
+        'Sunday': addDays(date, -5),
+        'Monday': addDays(date, -4),
+        'Tuesday': addDays(date, -3),
+        'Wednesday': addDays(date, -2),
+        'Thursday': addDays(date, -1),
+        'Friday': date,
+        'Saturday': addDays(date, 1)
+      }
+    case 6:
+      return {
+        'Sunday': addDays(date, -6),
+        'Monday': addDays(date, -5),
+        'Tuesday': addDays(date, -4),
+        'Wednesday': addDays(date, -3),
+        'Thursday': addDays(date, -2),
+        'Friday': addDays(date, -1),
+        'Saturday': date
+      }
+  }
+
+}
