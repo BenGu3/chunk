@@ -7,6 +7,7 @@ import { connect } from 'react-redux'
 import AddUpdateDialog from '../add-update-dialog'
 import { getCalendarFormattedDate, getDateFromTaskFormattedDate, timeSorter } from '../../date-util';
 import TaskPin from './task-pin'
+import BottomNav from '../bottom-nav';
 
 class Calendar extends React.Component {
   constructor(props) {
@@ -132,6 +133,7 @@ class Calendar extends React.Component {
           icon="add"
           onPress={this.handleOnPress}
         />
+        <BottomNav navigator={this.props.navigation}/>
       </View>
     )
   }
@@ -139,11 +141,9 @@ class Calendar extends React.Component {
 
 const styles = StyleSheet.create({
   fab: {
-    backgroundColor: '#4646FF',
-    position: 'absolute',
-    margin: 16,
-    right: 0,
-    bottom: 0,
+    backgroundColor: '#2c86e5',
+    bottom: 32,
+    zIndex: 1000
   }, event: {
     backgroundColor: 'white',
     flex: 1,

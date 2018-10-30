@@ -2,7 +2,7 @@ import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
   main: {
-    color: '#4646FF',
+    color: '#2c86e5',
   },
   dialogContent: {
     minHeight: '80%',

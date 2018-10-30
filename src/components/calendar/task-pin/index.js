@@ -37,7 +37,7 @@ export default class TaskPin extends React.Component {
 
 const styles = StyleSheet.create({
   fab: {
-    backgroundColor: '#4646FF',
+    backgroundColor: '#2c86e5',
     position: 'absolute',
     margin: 16,
     right: 0,

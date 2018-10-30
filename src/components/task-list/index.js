@@ -10,6 +10,7 @@ import AddUpdateDialog from '../add-update-dialog'
 import { addTask, updateTask } from '../../actions/TaskListActions'
 import { addEvent } from '../../actions/CalendarActions'
 import { getDueTime, getTaskFormattedDate, isToday, isTomorrow, timeSorter } from '../../date-util'
+import BottomNav from '../bottom-nav';
 
 class TaskList extends React.Component {
   constructor(props) {
@@ -102,7 +103,7 @@ class TaskList extends React.Component {
 
   render() {
     return (
-      <View style={{ flex: 1 }}>
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center'  }}>
         <ScrollView contentContainerStyle={{
           flex: 1, justifyContent: 'flex-start', alignItems: 'flex-start', marginTop: '10%', marginHorizontal: '5%'
         }}>
@@ -116,6 +117,7 @@ class TaskList extends React.Component {
           icon="add"
           onPress={this.handleOnPress}
         />
+        <BottomNav navigator={this.props.navigation}/>
       </View>
     )
   }
@@ -123,11 +125,9 @@ class TaskList extends React.Component {
 
 const styles = StyleSheet.create({
   fab: {
-    backgroundColor: '#4646FF',
-    position: 'absolute',
-    margin: 16,
-    right: 0,
-    bottom: 0,
+    backgroundColor: '#2c86e5',
+    bottom: 32,
+    zIndex: 1000
   },
   taskList: {
     display: 'flex',
