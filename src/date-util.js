@@ -37,3 +37,35 @@ export const isTomorrow = (date) => {
 export const timeSorter = (time1, time2) => {
   return getDateFromTaskFormattedDate(time1) - getDateFromTaskFormattedDate(time2)
 }
+
+export function addDays(date, days) {
+  var result = new Date(date);
+  result.setDate(result.getDate() + days);
+  return result;
+}
+
+export function getDayOfWeek(date) {
+  switch (date.getDay()) {
+    case 0:
+      return 'Sunday'
+    case 1:
+      return 'Monday'
+    case 2:
+      return 'Tuesday'
+    case 3:
+      return 'Wednesday'
+    case 4:
+      return 'Thursday'
+    case 5:
+      return 'Friday'
+    case 6:
+      return 'Saturday'
+  }
+}
+
+export function getCalendarHeaderDate(date) {
+  const monthNames = ["January", "February", "March", "April", "May", "June",
+    "July", "August", "September", "October", "November", "December"
+  ]
+  return monthNames[date.getMonth()] + ' ' + date.getDate() + ', ' + date.getFullYear()
+}

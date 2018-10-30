@@ -1,11 +1,18 @@
 import React from 'react'
-import { StyleSheet, Text, TouchableHighlight, View } from 'react-native'
+import { ScrollView, StyleSheet, Text, TouchableHighlight, View } from 'react-native'
 import { Agenda } from 'react-native-calendars'
 import { FAB } from 'react-native-paper'
+import GestureRecognizer, { swipeDirections } from 'react-native-swipe-gestures'
 import { connect } from 'react-redux'
 
 import AddUpdateDialog from '../add-update-dialog'
-import { getCalendarFormattedDate, getDateFromTaskFormattedDate, timeSorter } from '../../date-util';
+import {
+  addDays,
+  getCalendarFormattedDate, getCalendarHeaderDate,
+  getDateFromTaskFormattedDate,
+  getDayOfWeek,
+  timeSorter
+} from '../../date-util';
 import TaskPin from './task-pin'
 import BottomNav from '../bottom-nav';
 
@@ -68,44 +75,81 @@ class Calendar extends React.Component {
     )
   }
 
-  renderItem(item, isFirstItem) {
-    if (item.type === 'event') {
-      return this.renderEventsForDate(item)
-    } else if (item.type === 'task' && !item.completed) {
-      return this.renderTasksForDate(item, isFirstItem)
-    }
-  }
-
-  renderEmptyDate() {
-    return (
-      <View style={styles.emptyDate}>
-      </View>
-    )
-  }
-
   handleDayPress(day) {
     this.setState({ currentDay: getDateFromTaskFormattedDate(day.dateString) })
   }
 
-  handleRowChange(r1, r2) {
-    if (r1.type === 'event') {
-      return (r1.startTime !== r2.startTime) || (r1.endTime !== r2.endTime) || (r1.name !== r2.name)
-    } else if (r1.type === 'task') {
-      return (r1.completed !== r2.completed) || (r1.dueTime !== r2.dueTime) || (r1.name !== r2.name)
-    }
+  renderCalendarHeader() {
+
+
+    return (
+      <View style={{
+        flex: 1,
+        flexDirection: 'column',
+        justifyContent: 'flex-start',
+        paddingTop: 15,
+        marginBottom: 5,
+        shadowOpacity: 0.3,
+        shadowRadius: 3,
+        shadowColor: 'black',
+        shadowOffset: { height: 5, width: 0 },
+        backgroundColor: 'white'
+      }}>
+        <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-around', paddingBottom: 10 }}>
+          <Text style={{ fontSize: 20, fontWeight: '500' }}>{getDayOfWeek(this.state.currentDay)}</Text>
+          <Text style={{ fontSize: 20, fontWeight: '500' }}>{getCalendarHeaderDate(this.state.currentDay)}</Text>
+        </View>
+        <View
+          style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-around', paddingLeft: 10, paddingRight: 10 }}>
+          <Text>S</Text>
+          <Text>M</Text>
+          <Text>T</Text>
+          <Text>W</Text>
+          <Text>T</Text>
+          <Text>F</Text>
+          <Text>S</Text>
+        </View>
+        <View
+          style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-around', paddingLeft: 10, paddingRight: 10 }}>
+          <Text style={this.state.currentDay.getDay() === 0 ? { color: '#2c86e5' } : null}>S</Text>
+          <Text style={this.state.currentDay.getDay() === 1 ? { color: '#2c86e5' } : null}>M</Text>
+          <Text style={this.state.currentDay.getDay() === 2 ? { color: '#2c86e5' } : null}>T</Text>
+          <Text style={this.state.currentDay.getDay() === 3 ? { color: '#2c86e5' } : null}>W</Text>
+          <Text style={this.state.currentDay.getDay() === 4 ? { color: '#2c86e5' } : null}>T</Text>
+          <Text style={this.state.currentDay.getDay() === 5 ? { color: '#2c86e5' } : null}>F</Text>
+          <Text style={this.state.currentDay.getDay() === 6 ? { color: '#2c86e5' } : null}>S</Text>
+        </View>
+      </View>
+    )
   }
 
   renderCalendar() {
+    // return (
+    //   <Agenda
+    //     style={{ height: '100%', width: '100%' }}
+    //     hideKnob={true}
+    //     items={this.props.calendarItems}
+    //     onDayPress={this.handleDayPress.bind(this)}
+    //     renderEmptyDate={this.renderEmptyDate.bind(this)}
+    //     renderItem={this.renderItem.bind(this)}
+    //     rowHasChanged={this.handleRowChange.bind(this)}
+    //   />
+    // )
     return (
-      <Agenda
-        style={{ height: '100%', width: '100%' }}
-        hideKnob={true}
-        items={this.props.calendarItems}
-        onDayPress={this.handleDayPress.bind(this)}
-        renderEmptyDate={this.renderEmptyDate.bind(this)}
-        renderItem={this.renderItem.bind(this)}
-        rowHasChanged={this.handleRowChange.bind(this)}
-      />
+      <GestureRecognizer
+        onSwipeLeft={(state) => this.setState(prevState => ({ currentDay: addDays(prevState.currentDay, 1) }))}
+        onSwipeRight={(state) => this.setState(prevState => ({ currentDay: addDays(prevState.currentDay, -1) }))}
+        style={{
+          flex: 1,
+          backgroundColor: 'white',
+          width: '100%',
+          paddingTop: 20
+        }}
+      >
+        {this.renderCalendarHeader()}
+        <View style={{ backgroundColor: 'white', height: '80%' }}>
+        </View>
+      </GestureRecognizer>
     )
   }
 

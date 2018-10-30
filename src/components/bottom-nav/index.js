@@ -6,7 +6,6 @@ import { withNavigation } from 'react-navigation';
 
 class BottomNav extends React.Component {
   render() {
-    console.log('this.props.navigator.state.key:', this.props.navigator.state.key)
     return (
       <Appbar style={styles.bottom}>
         <Appbar.Action icon={() => (<Icon size={25} name={'md-list'} color={this.props.navigator.state.key === 'TaskList' ? '#2c86e5' : 'black'}/>)}
