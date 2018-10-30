@@ -55,12 +55,12 @@ class TaskList extends React.Component {
           }}
         />
         <TouchableHighlight onPress={() => this.handleUpdateTask(task)}>
-          <Text>
+          <Text style={{ fontSize: 16, fontWeight: '400', color: '#000000', opacity: .93 }}>
             {task.name}
           </Text>
         </TouchableHighlight>
         <TouchableHighlight onPress={() => this.handleUpdateTask(task)}>
-          <Text>
+          <Text style={{ fontSize: 14, fontWeight: '400', color: '#000000', opacity: .7 }}>
             {getDueTime(task.dueTime)}
           </Text>
         </TouchableHighlight>
@@ -75,7 +75,7 @@ class TaskList extends React.Component {
         return
       return (
         <View style={{ marginTop: '5%' }} key={taskGroupDate}>
-          <Text>
+          <Text style={{ fontSize: 20, fontWeight: '500' }}>
             {isToday(taskGroupDate)
               ? 'Today'
               : (isTomorrow(taskGroupDate)
@@ -103,11 +103,11 @@ class TaskList extends React.Component {
 
   render() {
     return (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center'  }}>
+      <View style={{ flex: 1, flexGrow: 1, flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center', height: 300  }}>
         <ScrollView contentContainerStyle={{
-          flex: 1, justifyContent: 'flex-start', alignItems: 'flex-start', marginTop: '10%', marginHorizontal: '5%'
+          flexGrow: 1, flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', marginTop: '10%', marginHorizontal: 10, paddingBottom: 50
         }}>
-          <Text style={{ textAlign: 'center' }}>Tasks</Text>
+          <Text style={{ fontSize: 24, fontWeight: '400' }}>Tasks</Text>
           {this.renderTaskList()}
           {this.renderAddUpdateDialog()}
         </ScrollView>
@@ -134,9 +134,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginHorizontal: '5%',
-    marginVertical: '.5%',
-    width: '100%'
+    width: 350
   }
 })
 

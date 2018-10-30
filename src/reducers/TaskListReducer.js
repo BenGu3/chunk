@@ -49,7 +49,50 @@ const INITIAL_STATE = {
         dueTime: new Date('November 1, 2018 15:00:00'),
         id: 6,
         type: 'task'
-      }
+      },
+      {
+        name: 'Sooooo many things to do!!!!',
+        dueTime: new Date('November 1, 2018 1:00:00'),
+        id: 7,
+        type: 'task'
+      },
+      {
+        name: 'Sooooo many things to do!!!!',
+        dueTime: new Date('November 1, 2018 2:00:00'),
+        id: 8,
+        type: 'task'
+      },
+      {
+        name: 'Sooooo many things to do!!!!',
+        dueTime: new Date('November 1, 2018 3:00:00'),
+        id: 9,
+        type: 'task'
+      },
+      {
+        name: 'Sooooo many things to do!!!!',
+        dueTime: new Date('November 1, 2018 4:00:00'),
+        id: 10,
+        type: 'task'
+      },
+      {
+        name: 'Sooooo many things to do!!!!',
+        dueTime: new Date('November 1, 2018 5:00:00'),
+        id: 11,
+        type: 'task'
+      },
+      {
+        name: 'Sooooo many things to do!!!!',
+        dueTime: new Date('November 1, 2018 6:00:00'),
+        id: 12,
+        type: 'task'
+      },
+      {
+        name: 'Sooooo many things to do!!!!',
+        dueTime: new Date('November 1, 2018 7:00:00'),
+        id: 13,
+        type: 'task'
+      },
+
     ]
   }
 }
