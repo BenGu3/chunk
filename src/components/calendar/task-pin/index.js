@@ -25,7 +25,7 @@ export default class TaskPin extends React.Component {
   render() {
     return (
       <FAB
-        style={styles.fab}
+        style={[styles.fab, this.props.styles]}
         small
         // icon={() => this.renderIcon()}
         icon='check-box-outline-blank'
@@ -39,8 +39,6 @@ const styles = StyleSheet.create({
   fab: {
     backgroundColor: '#2c86e5',
     position: 'absolute',
-    margin: 16,
-    right: 0,
-    bottom: 0,
+    zIndex: 2000
   }
 })

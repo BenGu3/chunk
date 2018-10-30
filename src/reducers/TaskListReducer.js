@@ -2,7 +2,56 @@ import { getCalendarFormattedDate } from '../date-util'
 import TYPES from '../actions/types'
 
 const INITIAL_STATE = {
-  tasks: {}
+  tasks: {
+    '2018-10-30': [
+      {
+        name: 'CS 452 Homework Due',
+        dueTime: new Date('October 30, 2018 09:30:00'),
+        id: 0,
+        type: 'task'
+      },
+      {
+        name: 'CS 324 Homework Due',
+        dueTime: new Date('October 30, 2018 13:35:00'),
+        id: 1,
+        type: 'task'
+      },
+      {
+        name: 'CS 356 Homework Due',
+        dueTime: new Date('October 30, 2018 15:00:00'),
+        id: 2,
+        type: 'task'
+      }
+    ],
+    '2018-10-31': [
+      {
+        name: 'Call home',
+        dueTime: new Date('October 31, 2018 16:00:00'),
+        id: 3,
+        type: 'task'
+      }
+    ],
+    '2018-11-1': [
+      {
+        name: 'CS 452 Lab Due',
+        dueTime: new Date('November 1, 2018 09:30:00'),
+        id: 4,
+        type: 'task'
+      },
+      {
+        name: 'CS 324 Lab Due',
+        dueTime: new Date('November 1, 2018 13:35:00'),
+        id: 5,
+        type: 'task'
+      },
+      {
+        name: 'CS 356 Reading Due',
+        dueTime: new Date('November 1, 2018 15:00:00'),
+        id: 6,
+        type: 'task'
+      }
+    ]
+  }
 }
 
 export const taskListReducer = (state = INITIAL_STATE, action) => {

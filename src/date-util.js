@@ -143,5 +143,9 @@ export function getCalendarCurrentWeek(date) {
         'Saturday': date
       }
   }
+}
 
+
+export function getTimeDifference(date1, date2) {
+  return ((date2.getHours() * 60) + (date2.getMinutes())) - ((date1.getHours() * 60) + (date1.getMinutes()))
 }

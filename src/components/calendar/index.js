@@ -13,6 +13,7 @@ import {
   getCalendarHeaderDate,
   getDateFromTaskFormattedDate,
   getDayOfWeek,
+  getTimeDifference,
   timeSorter
 } from '../../date-util';
 import TaskPin from './task-pin'
@@ -48,19 +49,6 @@ class Calendar extends React.Component {
     })
   }
 
-  renderTasksForDate(task, isFirstTask) {
-    if (!isFirstTask || task.completed)
-      return
-    const currentDate = getCalendarFormattedDate(task.dueTime)
-    const taskCountForDay = this.props.taskList.tasks[currentDate] && this.props.taskList.tasks[currentDate].length
-    return (
-      <TaskPin
-        numberOfTasks={taskCountForDay}
-        onPress={this.handleTaskPinPressed(currentDate)}
-      />
-    )
-  }
-
   handleUpdateEvent(event) {
     this.setState({
       isDialogOpen: true,
@@ -69,11 +57,42 @@ class Calendar extends React.Component {
     })
   }
 
-  renderEventsForDate(event) {
+  renderItemsForToday() {
+    const { currentDay } = this.state
+    const itemsForToday = this.props.calendarItems[getCalendarFormattedDate(currentDay)]
+    if (!itemsForToday)
+      return
     return (
-      <TouchableHighlight style={styles.event} onPress={() => this.handleUpdateEvent(event)}>
-        <Text>{event.name}</Text>
-      </TouchableHighlight>
+      <View>
+        {itemsForToday.map(item => {
+          if (item.type === 'task') {
+            if (item.completed)
+              return
+            const taskCountForDay = this.props.taskList.tasks[getCalendarFormattedDate(currentDay)]
+              && this.props.taskList.tasks[getCalendarFormattedDate(currentDay)].length
+            const taskLocation = (((item.dueTime.getHours() * 60) + item.dueTime.getMinutes()) * 50 / 60) + 20
+            return (
+              <TaskPin
+                key={'task-' + item.id}
+                numberOfTasks={taskCountForDay}
+                onPress={this.handleTaskPinPressed(currentDay)}
+                styles={{ top: taskLocation, right: 20 }}
+              />
+            )
+          } else {
+            const eventHeight = getTimeDifference(item.startTime, item.endTime) * 50 / 60
+            const eventLocation = (((item.startTime.getHours() * 60) + item.startTime.getMinutes()) * 50 / 60) + 20
+            return (
+              <TouchableHighlight
+                key={item.id}
+                style={[styles.event, { height: eventHeight, position: 'absolute', top: eventLocation }]}
+                onPress={() => this.handleUpdateEvent(item)}>
+                <Text style={{ color: 'white' }}>{item.name}</Text>
+              </TouchableHighlight>
+            )
+          }
+        })}
+      </View>
     )
   }
 
@@ -108,7 +127,8 @@ class Calendar extends React.Component {
               <View
                 key={day + '-view'}
                 style={{
-                  flex: 1, flexDirection: 'column', justifyContent: 'space-around', alignItems: 'center', paddingBottom: 10
+                  flex: 1, flexDirection: 'column', justifyContent: 'space-around', alignItems: 'center',
+                  paddingBottom: 10
                 }}>
                 <Text key={day + '-name'} style={{ fontSize: 18, fontWeight: '400' }}>{day.split('')[0]}</Text>
                 <TouchableHighlight
@@ -131,18 +151,66 @@ class Calendar extends React.Component {
     )
   }
 
+  renderTimeLines() {
+    let timeLines = []
+    timeLines.push(
+      <View key={'midnight1'} style={{
+        flex: 1, flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center', height: 50, marginLeft: 10
+      }}>
+        <Text>12</Text>
+        <Text>AM</Text>
+        <View style={{ borderBottomColor: '#808080', borderBottomWidth: .5, width: '100%', marginLeft: 10 }}/>
+      </View>
+    )
+    for (let i = 1; i < 12; i++) {
+      timeLines.push(
+        <View key={i + 'AM'} style={{
+          flex: 1, flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center', height: 50, marginLeft: 10
+        }}>
+          <Text>{i}</Text>
+          <Text>AM</Text>
+          <View style={{ borderBottomColor: '#808080', borderBottomWidth: .5, width: '100%', marginLeft: 10 }}/>
+        </View>
+      )
+    }
+    timeLines.push(
+      <View key={'noon'} style={{
+        flex: 1, flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center', height: 50, marginLeft: 10
+      }}>
+        <Text>12</Text>
+        <Text>PM</Text>
+        <View style={{ borderBottomColor: '#808080', borderBottomWidth: .5, width: '100%', marginLeft: 10 }}/>
+      </View>
+    )
+    for (let i = 1; i < 12; i++) {
+      timeLines.push(
+        <View key={i + 'PM'} style={{
+          flex: 1, flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center', height: 50, marginLeft: 10
+        }}>
+          <Text>{i}</Text>
+          <Text>PM</Text>
+          <View style={{ borderBottomColor: '#808080', borderBottomWidth: .5, width: '100%', marginLeft: 10 }}/>
+        </View>
+      )
+    }
+    timeLines.push(
+      <View key={'midnight2'} style={{
+        flex: 1, flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center', height: 50, marginLeft: 10
+      }}>
+        <Text>12</Text>
+        <Text>AM</Text>
+        <View style={{ borderBottomColor: '#808080', borderBottomWidth: .5, width: '100%', marginLeft: 10 }}/>
+      </View>
+    )
+
+    return (
+      <View style={{ marginTop: 10, marginBottom: 10, zIndex: -100 }}>
+        {timeLines}
+      </View>
+    )
+  }
+
   renderCalendar() {
-    // return (
-    //   <Agenda
-    //     style={{ height: '100%', width: '100%' }}
-    //     hideKnob={true}
-    //     items={this.props.calendarItems}
-    //     onDayPress={this.handleDayPress.bind(this)}
-    //     renderEmptyDate={this.renderEmptyDate.bind(this)}
-    //     renderItem={this.renderItem.bind(this)}
-    //     rowHasChanged={this.handleRowChange.bind(this)}
-    //   />
-    // )
     return (
       <GestureRecognizer
         onSwipeLeft={(state) => this.setState(prevState => ({ currentDay: addDays(prevState.currentDay, 1) }))}
@@ -155,8 +223,10 @@ class Calendar extends React.Component {
         }}
       >
         {this.renderCalendarHeader()}
-        <View style={{ backgroundColor: 'white', height: '75%' }}>
-        </View>
+        <ScrollView style={{ backgroundColor: 'white', minHeight: 350 }}>
+          {this.renderItemsForToday()}
+          {this.renderTimeLines()}
+        </ScrollView>
       </GestureRecognizer>
     )
   }
@@ -197,17 +267,16 @@ const styles = StyleSheet.create({
     bottom: 32,
     zIndex: 1000
   }, event: {
-    backgroundColor: 'white',
+    backgroundColor: '#2c86e5',
+    opacity: .75,
     flex: 1,
     borderRadius: 5,
     padding: 10,
     marginRight: 10,
     marginTop: 17,
-    height: 70
-  }, emptyDate: {
-    height: 15,
-    flex: 1,
-    paddingTop: 30
+    left: 50,
+    width: '100%',
+    zIndex: 1000
   }
 })
 

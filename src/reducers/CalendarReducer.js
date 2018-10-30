@@ -3,24 +3,61 @@ import TYPES from '../actions/types'
 
 const INITIAL_STATE = {
   events: {
-    '2018-10-13': [],
-    '2018-10-14': [],
-    '2018-10-15': [],
-    '2018-10-16': [],
-    '2018-10-17': [],
-    '2018-10-18': [],
-    '2018-10-19': [],
-    '2018-10-20': [],
-    '2018-10-21': [],
-    '2018-10-22': [],
-    '2018-10-23': [],
-    '2018-10-24': [],
-    '2018-10-25': [],
-    '2018-10-26': [],
-    '2018-10-27': [],
-    '2018-10-28': [],
-    '2018-10-29': [],
-    '2018-10-30': []
+    '2018-10-30': [
+      {
+        name: 'CS 452',
+        startTime: new Date('October 30, 2018 09:30:00'),
+        endTime: new Date('October 30, 2018 10:50:00'),
+        id: 0,
+        type: 'event'
+      },
+      {
+        name: 'CS 324',
+        startTime: new Date('October 30, 2018 13:35:00'),
+        endTime: new Date('October 30, 2018 14:50:00'),
+        id: 1,
+        type: 'event'
+      },
+      {
+        name: 'CS 356',
+        startTime: new Date('October 30, 2018 15:00:00'),
+        endTime: new Date('October 30, 2018 16:15:00'),
+        id: 2,
+        type: 'event'
+      }
+    ],
+    '2018-10-31': [
+      {
+        name: 'Sleep',
+        startTime: new Date('October 31, 2018 00:00:00'),
+        endTime: new Date('October 31, 2018 8:00:00'),
+        id: 3,
+        type: 'event'
+      }
+    ],
+    '2018-11-1': [
+      {
+        name: 'CS 452',
+        startTime: new Date('November 1, 2018 09:30:00'),
+        endTime: new Date('November 1, 2018 10:50:00'),
+        id: 4,
+        type: 'event'
+      },
+      {
+        name: 'CS 324',
+        startTime: new Date('November 1, 2018 13:35:00'),
+        endTime: new Date('November 1, 2018 14:50:00'),
+        id: 5,
+        type: 'event'
+      },
+      {
+        name: 'CS 356',
+        startTime: new Date('November 1, 2018 15:00:00'),
+        endTime: new Date('November 1, 2018 16:15:00'),
+        id: 6,
+        type: 'event'
+      }
+    ]
   }
 }
 
