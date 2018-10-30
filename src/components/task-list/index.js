@@ -51,7 +51,7 @@ class TaskList extends React.Component {
           value=''
           onCheck={() => this.props.updateTask({ ...task, completed: !task.completed }, taskGroupName)}
           style={{
-            container: { maxWidth: '10%' }
+            container: { maxWidth: '13%' }
           }}
         />
         <TouchableHighlight onPress={() => this.handleUpdateTask(task)}>
@@ -74,7 +74,7 @@ class TaskList extends React.Component {
       if (tasks[taskGroupDate].length === 0)
         return
       return (
-        <View style={{ marginTop: '5%' }} key={taskGroupDate}>
+        <View style={{ marginTop: '5%', marginLeft: '2%' }} key={taskGroupDate}>
           <Text style={{ fontSize: 20, fontWeight: '500' }}>
             {isToday(taskGroupDate)
               ? 'Today'

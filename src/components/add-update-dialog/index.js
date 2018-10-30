@@ -8,7 +8,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
 import { addEvent, updateEvent } from '../../actions/CalendarActions'
-import { getCalendarFormattedDate } from '../../date-util'
+import { addHours, getCalendarFormattedDate } from '../../date-util'
 import { addTask, updateTask } from '../../actions/TaskListActions'
 import styles from './styles'
 
@@ -83,7 +83,7 @@ class AddUpdateDialog extends React.Component {
         event: {
           name: '',
           startTime: this.props.currentDay,
-          endTime: this.props.currentDay,
+          endTime: addHours(this.props.currentDay, 1),
           id: null,
           type: 'event'
         },
@@ -166,7 +166,7 @@ class AddUpdateDialog extends React.Component {
         />
         <View style={styles.timeSelector}>
           <Text>Starts</Text>
-          <Button color={styles.timeSelectorColor} onPress={() => this.setState({ isStartTimePickerVisible: true })}>
+          <Button mode='outlined' color={'#000000'} onPress={() => this.setState({ isStartTimePickerVisible: true })}>
             {this.formatTime(startTime)}
           </Button>
           <DateTimePicker
@@ -174,14 +174,21 @@ class AddUpdateDialog extends React.Component {
             isVisible={this.state.isStartTimePickerVisible}
             mode='datetime'
             onConfirm={date => this.setState(prevState => (
-              { event: { ...prevState.event, startTime: date }, isStartTimePickerVisible: false })
+              {
+                event: {
+                  ...prevState.event,
+                  startTime: date,
+                  endTime: date > prevState.event.endTime ? addHours(date, 1) : prevState.event.endTime
+                },
+                isStartTimePickerVisible: false
+              })
             )}
             onCancel={() => this.setState({ isStartTimePickerVisible: false })}
           />
         </View>
         <View style={styles.timeSelector}>
           <Text>Ends</Text>
-          <Button color={styles.timeSelectorColor} onPress={() => this.setState({ isEndTimePickerVisible: true })}>
+          <Button mode='outlined' color={'#000000'} onPress={() => this.setState({ isEndTimePickerVisible: true })}>
             {this.formatTime(endTime)}
           </Button>
           <DateTimePicker
@@ -189,8 +196,15 @@ class AddUpdateDialog extends React.Component {
             isVisible={this.state.isEndTimePickerVisible}
             mode='datetime'
             onConfirm={date => this.setState(prevState => (
-              { event: { ...prevState.event, endTime: date }, isEndTimePickerVisible: false })
-            )}
+              {
+                event: {
+                  ...prevState.event,
+                  startTime: date < prevState.event.startTime ? addHours(date, -1) : prevState.event.startTime,
+                  endTime: date
+                },
+                isEndTimePickerVisible: false
+              }))
+            }
             onCancel={() => this.setState({ isEndTimePickerVisible: false })}
           />
         </View>
@@ -212,7 +226,7 @@ class AddUpdateDialog extends React.Component {
         />
         <View style={styles.timeSelector}>
           <Text>Due</Text>
-          <Button color={styles.timeSelectorColor} onPress={() => this.setState({ isDueTimePickerVisible: true })}>
+          <Button mode='outlined' color={'#000000'} onPress={() => this.setState({ isDueTimePickerVisible: true })}>
             {this.formatTime(dueTime)}
           </Button>
           <DateTimePicker

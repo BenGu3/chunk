@@ -5,18 +5,19 @@ const styles = StyleSheet.create({
     color: '#2c86e5',
   },
   dialogContent: {
-    minHeight: '80%',
+    minHeight: '30%',
   },
   optionsContainer: {
     display: 'flex',
     flexDirection: 'column',
-    justifyContent: 'flex-start',
+    justifyContent: 'space-between',
   },
   timeSelector: {
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'center'
+    alignItems: 'center',
+    marginTop: 15
   },
   timeSelectorColor: {
     color: '#000000'
@@ -24,6 +25,7 @@ const styles = StyleSheet.create({
   buttons: {
     flexDirection: 'row',
     justifyContent: 'space-around',
+    marginBottom: 15
   }
 })
 

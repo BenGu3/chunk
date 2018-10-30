@@ -39,9 +39,15 @@ export const timeSorter = (time1, time2) => {
 }
 
 export function addDays(date, days) {
-  var result = new Date(date);
-  result.setDate(result.getDate() + days);
-  return result;
+  var result = new Date(date)
+  result.setDate(result.getDate() + days)
+  return result
+}
+
+export function addHours(date, hours) {
+  var result = new Date(date)
+  result.setHours(result.getHours() + hours)
+  return result
 }
 
 export function getDayOfWeek(date) {
