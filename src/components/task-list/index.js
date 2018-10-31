@@ -103,9 +103,12 @@ class TaskList extends React.Component {
 
   render() {
     return (
-      <View style={{ flex: 1, flexGrow: 1, flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center', height: 300  }}>
+      <View style={{
+        flex: 1, flexGrow: 1, flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center', height: 300
+      }}>
         <ScrollView contentContainerStyle={{
-          flexGrow: 1, flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', marginTop: '10%', marginHorizontal: 10, paddingBottom: 50
+          flexGrow: 1, flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start',
+          marginTop: '10%', marginHorizontal: 10, paddingBottom: 50
         }}>
           <Text style={{ fontSize: 24, fontWeight: '400' }}>Tasks</Text>
           {this.renderTaskList()}
@@ -142,7 +145,9 @@ const mapStateToProps = (state) => {
   const { taskList } = state
   const orderedTasks = {}
   Object.keys(taskList.tasks).sort(timeSorter).forEach(function(key) {
-    orderedTasks[key] = taskList.tasks[key]
+    orderedTasks[key] = taskList.tasks[key].sort((task1, task2) => {
+      return task1.dueTime > task2.dueTime
+    })
   })
   return { taskList: { tasks: orderedTasks } }
 }
